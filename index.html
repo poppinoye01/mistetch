@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雾刻摄影工作室 · 人像写真与商业影像</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1115'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23c9a86a' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23c9a86a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115;
+  --bg-soft:#161a20;
+  --ink:#ece9e2;
+  --ink-dim:#a7a49d;
+  --accent:#c9a86a;
+  --line:rgba(236,233,226,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);
+  line-height:1.75;font-weight:300;letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ===== 顶部导航 ===== */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(15,17,21,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:"Noto Serif SC",serif;font-size:18px;font-weight:700;letter-spacing:.12em}
+.brand b{color:var(--accent);font-weight:700}
+.nav-links{display:none;gap:30px;font-size:14px;color:var(--ink-dim)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-size:14px;color:var(--accent);border:1px solid var(--accent);padding:8px 18px;border-radius:999px;transition:.2s}
+.nav-cta:hover{background:var(--accent);color:var(--bg)}
+@media(min-width:768px){.nav-links{display:flex}}
+
+/* ===== Hero ===== */
+.hero{position:relative;padding:120px 0 60px;background:var(--bg)}
+.hero-eyebrow{font-size:13px;letter-spacing:.35em;color:var(--accent);margin-bottom:20px}
+.hero h1{font-family:"Noto Serif SC",serif;font-size:clamp(40px,7vw,72px);font-weight:700;line-height:1.15;letter-spacing:.04em}
+.hero h1 .sep{color:var(--accent)}
+.hero-sub{margin-top:22px;max-width:520px;color:var(--ink-dim);font-size:clamp(15px,2.2vw,18px)}
+.hero-img-wrap{margin-top:46px}
+.hero-img{border-radius:6px;overflow:hidden;aspect-ratio:16/9}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;font-size:13px;color:var(--ink-dim)}
+.hero-meta span{border:1px solid var(--line);padding:6px 14px;border-radius:999px}
+
+/* ===== 通用区块 ===== */
+.section{padding:84px 0}
+.section-head{margin-bottom:42px}
+.section-head .kicker{font-size:13px;letter-spacing:.3em;color:var(--accent);margin-bottom:12px}
+.section-head h2{font-family:"Noto Serif SC",serif;font-size:clamp(26px,4vw,38px);font-weight:600;letter-spacing:.04em}
+.section-head p{margin-top:12px;color:var(--ink-dim);max-width:640px;font-size:15px}
+
+/* ===== 风格作品区 ===== */
+.style-grid{display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:600px){.style-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.style-grid{grid-template-columns:repeat(3,1fr)}}
+.style-card{background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer}
+.style-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.style-card .img{aspect-ratio:3/2;overflow:hidden}
+.style-card .img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.style-card:hover .img img{transform:scale(1.05)}
+.style-card .body{padding:20px 24px 24px}
+.style-card .no{font-size:12px;color:var(--accent);letter-spacing:.2em}
+.style-card h3{font-family:"Noto Serif SC",serif;font-size:22px;font-weight:600;margin-top:6px}
+.style-card p{font-size:14px;color:var(--ink-dim);margin-top:10px;line-height:1.7}
+.style-card .more{display:inline-block;margin-top:14px;font-size:13px;color:var(--accent);border-bottom:1px solid var(--accent)}
+
+/* ===== 板块入口 ===== */
+.board-grid{display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:700px){.board-grid{grid-template-columns:repeat(2,1fr)}}
+.board-card{position:relative;display:block;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer}
+.board-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.board-card .img{aspect-ratio:16/9;overflow:hidden}
+.board-card .img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.board-card:hover .img img{transform:scale(1.05)}
+.board-card .body{padding:22px 26px 26px}
+.board-card .no{font-size:12px;color:var(--accent);letter-spacing:.2em}
+.board-card h3{font-family:"Noto Serif SC",serif;font-size:26px;font-weight:600;margin-top:8px}
+.board-card p{font-size:14px;color:var(--ink-dim);margin-top:10px;line-height:1.7;max-width:520px}
+.board-card .more{display:inline-block;margin-top:16px;font-size:14px;color:var(--accent);border-bottom:1px solid var(--accent)}
+
+/* ===== 板块分类页 ===== */
+.view-head{padding-top:0}
+.view-head .back{margin-bottom:26px}
+.view-head h1{font-family:"Noto Serif SC",serif;font-size:clamp(28px,5vw,44px);font-weight:700;letter-spacing:.04em}
+.view-head p{margin-top:12px;color:var(--ink-dim);font-size:15px;max-width:600px}
+.view-head .kicker{font-size:13px;letter-spacing:.3em;color:var(--accent);margin-bottom:12px}
+.view-grid{margin-top:38px;display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:600px){.view-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.view-grid{grid-template-columns:repeat(3,1fr)}}
+.view-grid .style-card .no{font-size:12px;color:var(--accent);letter-spacing:.2em}
+
+/* ===== 详情页 ===== */
+.detail{padding:120px 0 80px}
+.detail-head{max-width:720px}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-dim);margin-bottom:30px;transition:.2s}
+.back:hover{color:var(--accent)}
+.back::before{content:"←";font-size:16px}
+.detail .kicker{font-size:13px;letter-spacing:.3em;color:var(--accent);margin-bottom:14px}
+.detail h1{font-family:"Noto Serif SC",serif;font-size:clamp(30px,5vw,48px);font-weight:700;letter-spacing:.04em}
+.detail .lead{margin-top:18px;color:var(--ink-dim);font-size:16px;max-width:620px}
+.detail-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-size:13px;color:var(--ink-dim)}
+.detail-meta span{border:1px solid var(--line);padding:5px 14px;border-radius:999px}
+.gallery{margin-top:46px;column-count:1;column-gap:18px}
+.gallery figure{break-inside:avoid;margin-bottom:18px;border-radius:6px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line)}
+.gallery img{width:100%;height:auto}
+.gallery figcaption{font-size:12px;color:var(--ink-dim);padding:10px 14px;letter-spacing:.05em}
+@media(min-width:700px){.gallery{column-count:3}}
+.detail-cta{margin-top:48px;padding-top:34px;border-top:1px solid var(--line)}
+.detail-cta .t{font-family:"Noto Serif SC",serif;font-size:24px;font-weight:600}
+.detail-cta .btn{display:inline-block;margin-top:16px;background:var(--accent);color:var(--bg);padding:14px 30px;border-radius:999px;font-weight:500;transition:.2s}
+.detail-cta .btn:hover{opacity:.85}
+
+/* ===== 服务 ===== */
+.services{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.service-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:640px){.service-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.service-grid{grid-template-columns:repeat(4,1fr)}}
+.service-item{border:1px solid var(--line);border-radius:6px;padding:26px 24px;background:var(--bg)}
+.service-item .num{font-family:"Noto Serif SC",serif;font-size:14px;color:var(--accent)}
+.service-item h3{font-family:"Noto Serif SC",serif;font-size:19px;font-weight:600;margin:12px 0 10px}
+.service-item p{font-size:14px;color:var(--ink-dim);line-height:1.7}
+
+/* ===== 联系 ===== */
+.contact .wrap{display:grid;grid-template-columns:1fr;gap:34px;align-items:start}
+@media(min-width:860px){.contact .wrap{grid-template-columns:1fr 1fr}}
+.contact h2{font-family:"Noto Serif SC",serif;font-size:clamp(26px,4vw,38px);font-weight:600;letter-spacing:.04em}
+.contact .lead{margin-top:14px;color:var(--ink-dim);font-size:15px;max-width:440px}
+.contact-line{display:flex;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);font-size:16px}
+.contact-line .lbl{color:var(--accent);font-size:13px;letter-spacing:.15em;width:56px;flex:none}
+.contact-line .val{color:var(--ink)}
+.contact-line a:hover{color:var(--accent)}
+.contact-note{margin-top:22px;font-size:13px;color:var(--ink-dim)}
+
+/* ===== 页脚 ===== */
+footer{border-top:1px solid var(--line);padding:40px 0;font-size:13px;color:var(--ink-dim)}
+.foot-inner{display:flex;flex-direction:column;gap:10px}
+@media(min-width:640px){.foot-inner{flex-direction:row;justify-content:space-between;align-items:center}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <div class="brand">雾刻<b>摄影</b></div>
+    <div class="nav-links">
+      <a href="#/">作品</a>
+      <a href="#home-services">服务</a>
+      <a href="#home-contact">联系</a>
+    </div>
+    <a class="nav-cta" href="#home-contact">预约拍摄</a>
+  </div>
+</nav>
+
+<!-- ===== 视图：首页 ===== -->
+<section id="home">
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">WUKE STUDIO · 常州</div>
+      <h1>雾刻摄影<br>让光影<span class="sep">替你说话</span></h1>
+      <p class="hero-sub">人像写真 · 商业影像 · 主题创作。在常州，我们用心、用光，把每一帧拍成值得收藏的作品。</p>
+      <div class="hero-img-wrap">
+        <div class="hero-img"><img src="assets/hero.jpg" alt="雾刻摄影作品主视觉"></div>
+      </div>
+      <div class="hero-meta">
+        <span>人像写真</span><span>商业合作</span><span>二次元</span><span>摄影沙龙</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="styles">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">PORTFOLIO</div>
+        <h2>查看作品</h2>
+        <p>人像写真与二次元，两大板块。点击进入，浏览对应的作品集。你负责做自己，我们负责把风格拍到位。</p>
+      </div>
+      <div class="board-grid">
+        <a class="board-card" href="#/people">
+          <div class="img"><img src="assets/board-people.jpg" alt="人像写真板块"></div>
+          <div class="body">
+            <div class="no">01 · PORTRAIT</div>
+            <h3>人像写真</h3>
+            <p>胶片、日系、氛围、清冷、港风、棚拍光影——六种风格，拍出你的样子。</p>
+            <span class="more">进入人像作品 →</span>
+          </div>
+        </a>
+        <a class="board-card" href="#/acg">
+          <div class="img"><img src="assets/board-acg.jpg" alt="二次元板块"></div>
+          <div class="body">
+            <div class="no">02 · ACG</div>
+            <h3>二次元</h3>
+            <p>原神、崩坏·星穹铁道、绝区零、明日方舟、第五人格、崩坏3——热门 IP cosplay 写真。</p>
+            <span class="more">进入二次元作品 →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section services" id="home-services">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">SERVICES</div>
+        <h2>我们能做什么</h2>
+        <p>从个人到品牌，从记录到创作，我们提供完整的影像服务。</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-item"><div class="num">人像写真</div><h3>记录你的光</h3><p>少女写真、个人形象照、纪念写真，一对一沟通定制。</p></div>
+        <div class="service-item"><div class="num">商业合作</div><h3>让品牌有画面</h3><p>舞房、高校、服装店铺等品牌拍摄，交付符合调性的商业影像。</p></div>
+        <div class="service-item"><div class="num">主题创作</div><h3>二次元</h3><p>动漫感、COSPLAY 等个性化创作，把热爱拍成作品。</p></div>
+        <div class="service-item"><div class="num">课程与沙龙</div><h3>把热爱传下去</h3><p>线上课程与摄影沙龙，分享拍摄与后期经验，和同好一起成长。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="home-contact">
+    <div class="container">
+      <div class="wrap">
+        <div>
+          <div class="kicker" style="font-size:13px;letter-spacing:.3em;color:var(--accent);margin-bottom:12px">CONTACT</div>
+          <h2>预约拍摄</h2>
+          <p class="lead">想拍照、想合作、想学摄影，欢迎随时联系。先聊聊想法，我们再决定怎么拍。</p>
+          <div class="contact-note">工作日 10:00 – 20:00，欢迎预约到店或咨询档期。</div>
+        </div>
+        <div>
+          <div class="contact-line"><span class="lbl">电话</span><span class="val"><a href="tel:19996692632">199 9669 2632</a>　/　<a href="tel:18915826177">189 1582 6177</a></span></div>
+          <div class="contact-line"><span class="lbl">微信</span><span class="val">mistetch　/　modelXspace</span></div>
+          <div class="contact-line"><span class="lbl">地址</span><span class="val">常州经开区延陵东路598号安和锦·CU1958文体旅产业创意社区29栋202室</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===== 视图：人像板块 ===== -->
+<section id="people-view" class="section" hidden>
+  <div class="container">
+    <div class="view-head">
+      <a class="back" href="#/">返回作品集</a>
+      <div class="kicker">PORTRAIT · 人像</div>
+      <h1>人像写真</h1>
+      <p>六种风格，点击卡片进入浏览作品集。胶片、日系、氛围、清冷、港风，再到影棚光影，总有一种适合你。</p>
+    </div>
+    <div class="view-grid">
+      <a class="style-card" href="#/film">
+        <div class="img"><img src="assets/film.jpg" alt="胶片感"></div>
+        <div class="body"><div class="no">01 · FILM</div><h3>胶片感</h3><p>复古颗粒与柔和暖调，让时光沉淀在底片上。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/japan">
+        <div class="img"><img src="assets/japan.jpg" alt="日系清新"></div>
+        <div class="body"><div class="no">02 · FRESH</div><h3>日系清新</h3><p>低饱和透明感奶油肌，干净明亮的自然光。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/mood">
+        <div class="img"><img src="assets/mood.jpg" alt="氛围感"></div>
+        <div class="body"><div class="no">03 · MOOD</div><h3>氛围感</h3><p>用光影讲故事，电影感的影调与情绪。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/cool">
+        <div class="img"><img src="assets/cool.jpg" alt="清冷感"></div>
+        <div class="body"><div class="no">04 · CLEAN</div><h3>清冷感</h3><p>克制疏离的高级灰调，极简留白。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/hk">
+        <div class="img"><img src="assets/hk.jpg" alt="复古港风"></div>
+        <div class="body"><div class="no">05 · HONG KONG</div><h3>复古港风</h3><p>霓虹与红裙，王家卫式的光影暧昧。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/studio">
+        <div class="img"><img src="assets/studio.jpg" alt="棚拍光影"></div>
+        <div class="body"><div class="no">06 · STUDIO</div><h3>棚拍光影</h3><p>影棚灯光人像，轮廓分明，用光塑造高级质感。</p><span class="more">查看作品 →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：二次元板块 ===== -->
+<section id="acg-view" class="section" hidden>
+  <div class="container">
+    <div class="view-head">
+      <a class="back" href="#/">返回作品集</a>
+      <div class="kicker">ACG · 二次元</div>
+      <h1>二次元 cosplay 写真</h1>
+      <p>热门 IP 主题创作，把热爱拍成作品。点击进入浏览对应 IP 的作品集。</p>
+    </div>
+    <div class="view-grid">
+      <a class="style-card" href="#/genshin">
+        <div class="img"><img src="assets/genshin.jpg" alt="原神"></div>
+        <div class="body"><div class="no">01 · GENSHIN</div><h3>原神</h3><p>提瓦特奇幻大陆，神明与冒险的异世之旅。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/starrail">
+        <div class="img"><img src="assets/starrail.jpg" alt="崩坏星穹铁道"></div>
+        <div class="body"><div class="no">02 · STAR RAIL</div><h3>崩坏·星穹铁道</h3><p>银河列车，星际旅行的科幻浪漫。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/zzz">
+        <div class="img"><img src="assets/zzz.jpg" alt="绝区零"></div>
+        <div class="body"><div class="no">03 · ZZZ</div><h3>绝区零</h3><p>新艾利都，潮流都市与赛博街头的酷飒。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/arknight">
+        <div class="img"><img src="assets/arknight.jpg" alt="明日方舟"></div>
+        <div class="body"><div class="no">04 · ARKNIGHT</div><h3>明日方舟</h3><p>罗德岛，末世战术与冷峻美感。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/identityv">
+        <div class="img"><img src="assets/identityv.jpg" alt="第五人格"></div>
+        <div class="body"><div class="no">05 · IDENTITY V</div><h3>第五人格</h3><p>迷雾庄园，暗黑哥特的诡谲华丽。</p><span class="more">查看作品 →</span></div>
+      </a>
+      <a class="style-card" href="#/hi3">
+        <div class="img"><img src="assets/hi3.jpg" alt="崩坏3"></div>
+        <div class="body"><div class="no">06 · HONKAI 3</div><h3>崩坏3</h3><p>崩坏世界，机甲少女的战斗美学。</p><span class="more">查看作品 →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：胶片感 ===== -->
+<section id="view-film" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">01 · FILM</div>
+      <h1>胶片感</h1>
+      <p class="lead">复古颗粒与柔和暖调，让时光在底片上沉淀。适合想要怀旧质感、故事感与电影氛围的你。</p>
+      <div class="detail-meta"><span>复古胶片</span><span>暖调</span><span>颗粒质感</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/film.jpg" alt="胶片感作品1"><figcaption>胶片感 · 卧室暖光</figcaption></figure>
+      <figure><img src="assets/film-3.jpg" alt="胶片感作品2"><figcaption>胶片感 · 街角午后</figcaption></figure>
+      <figure><img src="assets/film-2.jpg" alt="胶片感作品3"><figcaption>胶片感 · 咖啡馆</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组胶片感写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：日系清新 ===== -->
+<section id="view-japan" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">02 · FRESH</div>
+      <h1>日系清新</h1>
+      <p class="lead">低饱和、透明感奶油肌，干净明亮的自然光。温柔通透、杂志感十足，适合清新自然的你。</p>
+      <div class="detail-meta"><span>清新</span><span>奶油肌</span><span>透明感</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/japan.jpg" alt="日系清新作品1"><figcaption>日系清新 · 白纱窗光</figcaption></figure>
+      <figure><img src="assets/japan-3.jpg" alt="日系清新作品2"><figcaption>日系清新 · 阳台逆光</figcaption></figure>
+      <figure><img src="assets/japan-2.jpg" alt="日系清新作品3"><figcaption>日系清新 · 居家慵懒</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想要一组日系清新写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：氛围感 ===== -->
+<section id="view-mood" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">03 · MOOD</div>
+      <h1>氛围感</h1>
+      <p class="lead">用光影讲故事，电影感的影调与情绪。适合想要表达内心、追求画面意境的你。</p>
+      <div class="detail-meta"><span>情绪</span><span>电影感</span><span>光影叙事</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/mood.jpg" alt="氛围感作品1"><figcaption>氛围感 · 黄昏逆光</figcaption></figure>
+      <figure><img src="assets/mood-3.jpg" alt="氛围感作品2"><figcaption>氛围感 · 窗前独白</figcaption></figure>
+      <figure><img src="assets/mood-2.jpg" alt="氛围感作品3"><figcaption>氛围感 · 光与情绪</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组情绪氛围写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：清冷感 ===== -->
+<section id="view-cool" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">04 · CLEAN</div>
+      <h1>清冷感</h1>
+      <p class="lead">克制疏离的高级灰调，极简留白。静谧清冷、耐看有质感，适合追求高级时尚感的你。</p>
+      <div class="detail-meta"><span>极简</span><span>高级感</span><span>灰调</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/cool.jpg" alt="清冷感作品1"><figcaption>清冷感 · 纯色留白</figcaption></figure>
+      <figure><img src="assets/cool-3.jpg" alt="清冷感作品2"><figcaption>清冷感 · 半身灰调</figcaption></figure>
+      <figure><img src="assets/cool-2.jpg" alt="清冷感作品3"><figcaption>清冷感 · 侧脸特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想要一组清冷高级写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：复古港风 ===== -->
+<section id="view-hk" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">05 · HONG KONG</div>
+      <h1>复古港风</h1>
+      <p class="lead">霓虹与红裙，王家卫式的光影暧昧。重返九十年代，适合喜欢复古与戏剧感的你。</p>
+      <div class="detail-meta"><span>90年代</span><span>霓虹</span><span>浓烈色彩</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/hk.jpg" alt="复古港风作品1"><figcaption>港风 · 霓虹魅影</figcaption></figure>
+      <figure><img src="assets/hk-3.jpg" alt="复古港风作品2"><figcaption>港风 · 街头回眸</figcaption></figure>
+      <figure><img src="assets/hk-2.jpg" alt="复古港风作品3"><figcaption>港风 · 旧式招牌</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组港风写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：棚拍光影 ===== -->
+<section id="view-studio" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/people">返回人像作品</a>
+    <div class="detail-head">
+      <div class="kicker">06 · STUDIO</div>
+      <h1>棚拍光影</h1>
+      <p class="lead">专业影棚灯光人像，硬光与轮廓光塑造立体质感。干净背景、纯粹光影，把高级感拍出来。</p>
+      <div class="detail-meta"><span>影棚灯光</span><span>立体光影</span><span>高级质感</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/studio.jpg" alt="棚拍光影1"><figcaption>棚拍 · 时尚硬光</figcaption></figure>
+      <figure><img src="assets/studio-3.jpg" alt="棚拍光影2"><figcaption>棚拍 · 轮廓光</figcaption></figure>
+      <figure><img src="assets/studio-2.jpg" alt="棚拍光影3"><figcaption>棚拍 · 侧光特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组影棚光影写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：原神 ===== -->
+<section id="view-genshin" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">01 · GENSHIN</div>
+      <h1>原神</h1>
+      <p class="lead">提瓦特奇幻大陆，神明与冒险的异世之旅。华丽服饰、异域风情，cosplay 写真还原幻想世界。</p>
+      <div class="detail-meta"><span>奇幻大陆</span><span>华丽</span><span>异域</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/genshin.jpg" alt="原神1"><figcaption>原神 · 异世邂逅</figcaption></figure>
+      <figure><img src="assets/genshin-2.jpg" alt="原神2"><figcaption>原神 · 宫廷烛光</figcaption></figure>
+      <figure><img src="assets/genshin-3.jpg" alt="原神3"><figcaption>原神 · 华服特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组原神 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：崩坏星穹铁道 ===== -->
+<section id="view-starrail" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">02 · STAR RAIL</div>
+      <h1>崩坏·星穹铁道</h1>
+      <p class="lead">银河列车，星际旅行的科幻浪漫。银白制服、星海背景，把星际冒险拍成写真。</p>
+      <div class="detail-meta"><span>星际旅行</span><span>科幻</span><span>浪漫</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/starrail.jpg" alt="星穹铁道1"><figcaption>星穹 · 银河列车</figcaption></figure>
+      <figure><img src="assets/starrail-2.jpg" alt="星穹铁道2"><figcaption>星穹 · 星海制服</figcaption></figure>
+      <figure><img src="assets/starrail-3.jpg" alt="星穹铁道3"><figcaption>星穹 · 星云特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组星穹铁道 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：绝区零 ===== -->
+<section id="view-zzz" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">03 · ZZZ</div>
+      <h1>绝区零</h1>
+      <p class="lead">新艾利都，潮流都市与赛博街头的酷飒。霓虹光影、街头造型，拍出都市新潮感。</p>
+      <div class="detail-meta"><span>新艾利都</span><span>潮流都市</span><span>赛博</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/zzz.jpg" alt="绝区零1"><figcaption>绝区零 · 赛博街头</figcaption></figure>
+      <figure><img src="assets/zzz-2.jpg" alt="绝区零2"><figcaption>绝区零 · 霓虹潮流</figcaption></figure>
+      <figure><img src="assets/zzz-3.jpg" alt="绝区零3"><figcaption>绝区零 · 护目镜特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组绝区零 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：明日方舟 ===== -->
+<section id="view-arknight" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">04 · ARKNIGHT</div>
+      <h1>明日方舟</h1>
+      <p class="lead">罗德岛，末世战术与冷峻美感。干练制服、科技氛围，把战术美感拍出来。</p>
+      <div class="detail-meta"><span>末世战术</span><span>罗德岛</span><span>冷峻</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/arknight.jpg" alt="明日方舟1"><figcaption>方舟 · 罗德岛战术</figcaption></figure>
+      <figure><img src="assets/arknight-2.jpg" alt="明日方舟2"><figcaption>方舟 · 冷峻制服</figcaption></figure>
+      <figure><img src="assets/arknight-3.jpg" alt="明日方舟3"><figcaption>方舟 · 战术特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组明日方舟 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：第五人格 ===== -->
+<section id="view-identityv" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">05 · IDENTITY V</div>
+      <h1>第五人格</h1>
+      <p class="lead">迷雾庄园，暗黑哥特的诡谲华丽。华丽暗色服饰、神秘氛围，拍出暗黑美学。</p>
+      <div class="detail-meta"><span>迷雾庄园</span><span>暗黑哥特</span><span>诡谲</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/identityv.jpg" alt="第五人格1"><figcaption>第五人格 · 迷雾庄园</figcaption></figure>
+      <figure><img src="assets/identityv-2.jpg" alt="第五人格2"><figcaption>第五人格 · 哥特华服</figcaption></figure>
+      <figure><img src="assets/identityv-3.jpg" alt="第五人格3"><figcaption>第五人格 · 暗黑特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组第五人格 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：崩坏3 ===== -->
+<section id="view-hi3" class="detail" hidden>
+  <div class="container">
+    <a class="back" href="#/acg">返回二次元作品</a>
+    <div class="detail-head">
+      <div class="kicker">06 · HONKAI 3</div>
+      <h1>崩坏3</h1>
+      <p class="lead">崩坏世界，机甲少女的战斗美学。未来机甲、科技光效，拍出战斗少女的飒爽。</p>
+      <div class="detail-meta"><span>崩坏世界</span><span>机甲少女</span><span>战斗美学</span></div>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/hi3.jpg" alt="崩坏3作品1"><figcaption>崩坏3 · 机甲少女</figcaption></figure>
+      <figure><img src="assets/hi3-2.jpg" alt="崩坏3作品2"><figcaption>崩坏3 · 战斗光影</figcaption></figure>
+      <figure><img src="assets/hi3-3.jpg" alt="崩坏3作品3"><figcaption>崩坏3 · 机甲特写</figcaption></figure>
+    </div>
+    <div class="detail-cta">
+      <div class="t">想拍一组崩坏3 cosplay 写真？</div>
+      <a class="btn" href="tel:19996692632">电话预约 199 9669 2632</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© <span id="year"></span> 雾刻摄影工作室 · WUKE STUDIO</div>
+    <div>在常州，让光影替你说话。</div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+var views = ["film","japan","mood","cool","hk","studio","genshin","starrail","zzz","arknight","identityv","hi3"];
+var boards = ["people","acg"];
+function render(){
+  var raw = (location.hash||"").replace(/^#\/?/,"");
+  var home = document.getElementById("home");
+  var isDetail = views.indexOf(raw) !== -1;
+  var isBoard = boards.indexOf(raw) !== -1;
+  home.hidden = isDetail || isBoard;
+  for(var i=0;i<views.length;i++){ document.getElementById("view-"+views[i]).hidden = !(isDetail && views[i]===raw); }
+  for(var j=0;j<boards.length;j++){ document.getElementById(boards[j]+"-view").hidden = !(isBoard && boards[j]===raw); }
+  if(isDetail || isBoard){ window.scrollTo(0,0); return; }
+  var tgt = document.getElementById(raw);
+  if(tgt && raw !== "home"){ tgt.scrollIntoView(); } else { window.scrollTo(0,0); }
+}
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
