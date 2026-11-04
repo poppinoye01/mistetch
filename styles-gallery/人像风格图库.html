@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人像风格图库 · 挑一种属于你的光</title>
+<meta name="description" content="三十二种人像摄影风格图库：日系、韩系、港风、电影感、古风、二次元、赛博霓虹、黑白、职业形象、婚纱、亲子、街头与光影实验。按场景、风格族、价位档筛选，看气质、看适合人群、看服装妆造，到店前先挑好。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230c0b0a'/%3E%3Cg fill='none' stroke='%23c19a5b' stroke-width='1.6'%3E%3Ccircle cx='16' cy='16' r='9'/%3E%3Cpath d='M16 7 L23 21 L9 21 Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;700;900&display=swap">
+<style>
+/* ===== 设计变量：暗房 + 接触印样 ===== */
+:root{
+  --ink:#0c0b0a;          /* 页面暖炭黑 */
+  --panel:#151310;        /* 卡面 */
+  --panel-2:#1c1915;
+  --line:#2b261f;         /* 发丝线 */
+  --paper:#ece4d6;        /* 暖白正文 */
+  --ash:#948b7d;          /* 次要文字 */
+  --brass:#c19a5b;        /* 唯一强调：黄铜 */
+  --safelight:#a4402c;    /* 暗房安全灯红，仅用于帧号与选中微记 */
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","Consolas","SF Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--sans);font-size:15px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(130% 70% at 50% 0%,#171410 0%,#0c0b0a 58%,#090807 100%);
+}
+img{display:block}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:700;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--brass)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* ===== 抬头 ===== */
+.masthead{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 16px;border-bottom:1px solid var(--line);
+  font-size:12px;color:var(--ash);letter-spacing:.04em;
+}
+.masthead .mark{display:flex;align-items:center;gap:8px;color:var(--paper);font-size:12.5px;min-width:0}
+.mark .dot{width:7px;height:7px;background:var(--safelight);border-radius:50%;flex:none}
+.masthead .stamp{display:none;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#7d7466}
+
+/* ===== 片头：一束硬光 ===== */
+.plate{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.plate .shotwrap{position:relative;aspect-ratio:4/3}
+.plate img{width:100%;height:100%;object-fit:cover;object-position:52% 32%;filter:saturate(.9) contrast(1.04)}
+.plate .veil{display:none}
+.plate .lede{padding:18px 18px 20px}
+.plate .kicker{font-size:12px;letter-spacing:.18em;color:var(--brass);margin-bottom:10px}
+.plate h1{
+  font-size:clamp(27px,6.4vw,58px);line-height:1.16;font-weight:900;
+  text-wrap:balance;max-width:16em;
+}
+.plate .sub{
+  margin-top:12px;font-size:14px;line-height:1.75;color:#cfc5b4;max-width:34em;
+}
+.plate .facts{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:16px;border-top:1px solid rgba(236,228,214,.16);
+  padding-top:12px;
+}
+.plate .facts span{
+  font-size:12px;color:#a79d8e;padding-right:16px;margin-right:16px;
+  border-right:1px solid rgba(236,228,214,.14);
+}
+.plate .facts span:last-child{border-right:0;padding-right:0;margin-right:0}
+.plate .facts b{color:var(--paper);font-weight:600}
+
+/* ===== 筛选台 ===== */
+.console{
+  position:static;z-index:30;
+  background:#0e0d0b;border-bottom:1px solid var(--line);
+  padding:10px 16px 12px;
+}
+.console .row{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-bottom:5px}
+.console .row:last-child{margin-bottom:0}
+.rowlabel{
+  font-size:10.5px;color:#7d7466;letter-spacing:.08em;flex:none;
+  min-width:3.2em;padding-top:2px;
+}
+.chip{
+  appearance:none;border:1px solid var(--line);background:transparent;color:#c6bcab;
+  font-family:var(--sans);font-size:12px;line-height:1;
+  padding:9px 9px;min-height:32px;cursor:pointer;border-radius:2px;
+  white-space:nowrap;flex:0 0 auto;
+  transition:border-color .16s,color .16s,background-color .16s;
+}
+.chip:hover{border-color:#4b4032;color:var(--paper)}
+.chip[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#17130d;font-weight:600}
+.chip .n{font-family:var(--mono);font-size:10px;opacity:.62;margin-left:5px}
+.search{
+  flex:1 1 140px;min-width:0;display:flex;align-items:center;gap:6px;
+  border:1px solid var(--line);border-radius:2px;padding:0 8px;background:#131110;
+}
+.search svg{width:15px;height:15px;flex:none;stroke:#7d7466;fill:none;stroke-width:1.7}
+.search input{
+  flex:1 1 auto;min-width:0;border:0;background:transparent;color:var(--paper);
+  font-family:var(--sans);font-size:16px;padding:8px 0;outline:none;
+}
+.search input::placeholder{color:#6f6659}
+.select{
+  appearance:none;border:1px solid var(--line);background:#131110;color:#c6bcab;
+  font-family:var(--sans);font-size:13px;padding:9px 26px 9px 10px;min-height:34px;
+  border-radius:2px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#7d7466 50%),linear-gradient(135deg,#7d7466 50%,transparent 50%);
+  background-position:calc(100% - 13px) 15px,calc(100% - 8px) 15px;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
+}
+.count{
+  display:flex;align-items:baseline;gap:8px;font-size:12px;color:#8b8274;
+  margin-top:8px;
+}
+.count b{font-family:var(--serif);font-size:19px;color:var(--brass);line-height:1}
+.count .hint{color:#6f6659}
+
+/* ===== 接触印样：卡片网格 ===== */
+.sheet{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;padding:14px 16px 8px;
+}
+.frame{min-width:0}
+.frame.is-hidden{display:none}
+.frame-btn{
+  display:block;width:100%;height:100%;padding:0;border:1px solid var(--line);
+  background:var(--panel);color:inherit;font:inherit;text-align:left;cursor:pointer;
+  border-radius:2px;transition:border-color .18s;
+}
+.frame-btn:hover{border-color:#4d4233}
+.frame-btn:hover .idx{color:var(--safelight)}
+.thumb{position:relative;aspect-ratio:3/4;overflow:hidden;background:#080706}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:50% 32%}
+.tier{
+  position:absolute;left:7px;top:7px;
+  font-size:10px;line-height:1;letter-spacing:.06em;
+  padding:4px 6px;color:#e3d6bd;background:rgba(10,9,8,.78);
+  border:1px solid rgba(193,154,91,.32);border-radius:1px;
+}
+.strip{
+  display:flex;align-items:baseline;gap:7px;padding:9px 9px 3px;
+}
+.idx{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#8a7f6e;
+  transition:color .18s;flex:none;
+}
+.nm{font-size:15px;line-height:1.34;font-weight:700;min-width:0;overflow-wrap:break-word}
+.tagline{
+  font-size:12px;line-height:1.6;color:#a49a8a;padding:2px 9px 8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.tagrow{display:flex;flex-wrap:wrap;gap:4px;padding:0 9px 10px}
+.tagrow span{
+  font-size:10px;line-height:1;color:#8e8375;border:1px solid #2f2a23;
+  padding:4px 5px;border-radius:1px;
+}
+
+/* ===== 空态 ===== */
+.empty{display:none;padding:64px 20px 80px;text-align:center}
+.empty.on{display:block}
+.empty h2{font-size:19px;margin-bottom:10px}
+.empty p{color:#93897a;font-size:13px;max-width:26em;margin:0 auto 18px}
+.empty button{
+  appearance:none;border:1px solid var(--brass);background:transparent;color:var(--brass);
+  font-family:var(--sans);font-size:14px;padding:11px 20px;border-radius:2px;cursor:pointer;
+}
+.empty button:hover{background:var(--brass);color:#17130d}
+
+/* ===== 落款：价位与须知 ===== */
+.colophon{border-top:1px solid var(--line);padding:34px 20px 46px;margin-top:26px}
+.colophon .cols{display:grid;grid-template-columns:1fr;gap:30px}
+.colophon h2{font-size:17px;margin-bottom:14px}
+.tiers{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.tierrow{display:grid;grid-template-columns:5.2em 1fr;gap:10px;background:var(--ink);padding:11px 12px}
+.tierrow dt{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--brass)}
+.tierrow dd{margin:0;font-size:12px;line-height:1.65;color:#a49a8a}
+.notes{font-size:12px;line-height:1.9;color:#8e8375}
+.notes li{margin:0 0 6px;padding-left:14px;position:relative;list-style:none}
+.notes li::before{content:"";position:absolute;left:0;top:.72em;width:5px;height:1px;background:#5a5147}
+.notes p{margin-top:12px;color:#7d7466;font-size:11px;line-height:1.8}
+
+/* ===== 详情 ===== */
+.veil-layer{
+  position:fixed;inset:0;z-index:60;background:rgba(7,6,5,.9);
+  overflow:auto;display:none;overscroll-behavior:contain;
+}
+.veil-layer.open{display:block}
+.detail{
+  position:relative;max-width:1040px;margin:0 auto;background:var(--panel);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.d-grid{display:grid;grid-template-columns:1fr}
+.d-media{position:relative;background:#080706}
+.d-media img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 32%}
+.d-close{
+  position:absolute;top:10px;right:10px;z-index:3;
+  appearance:none;width:38px;height:38px;border:1px solid rgba(236,228,214,.28);
+  background:rgba(10,9,8,.82);color:var(--paper);cursor:pointer;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.d-close:hover{border-color:var(--brass);color:var(--brass)}
+.d-close svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.9}
+.d-body{padding:22px 18px 28px;min-width:0}
+.d-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#8a7f6e;margin-bottom:10px}
+.d-name{font-size:28px;line-height:1.2;font-weight:900}
+.d-alias{font-size:12px;color:#8e8375;margin-top:6px}
+.d-lead{
+  font-family:var(--serif);font-weight:500;font-size:16px;line-height:1.62;color:#ded4c4;
+  margin-top:16px;padding-left:12px;border-left:2px solid var(--brass);
+}
+.d-desc{font-size:13px;line-height:1.85;color:#a99f8f;margin-top:14px}
+.d-meta{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px;
+}
+.d-meta div{background:var(--ink);padding:9px 10px;min-width:0}
+.d-meta .k{font-size:10px;letter-spacing:.1em;color:#7d7466;display:block;margin-bottom:3px}
+.d-meta .v{font-size:13px;color:var(--paper);overflow-wrap:break-word}
+.sec{margin-top:22px}
+.sec h4{
+  font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.14em;
+  color:var(--brass);margin-bottom:9px;
+}
+.sec p{font-size:13px;line-height:1.85;color:#b6ac9c}
+.people{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.prow{display:grid;grid-template-columns:4.6em 1fr;gap:8px;background:var(--ink);padding:8px 10px}
+.prow span{font-size:11px;color:#7d7466}
+.prow strong{font-size:13px;font-weight:400;color:#c4baa9}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.steps li{
+  font-size:13px;line-height:1.7;color:#b6ac9c;padding-left:18px;position:relative;
+}
+.steps li::before{
+  content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;
+  border:1px solid var(--brass);transform:rotate(45deg);
+}
+.occasions{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.occasions span{font-size:11px;color:#c3b9a8;border:1px solid #37312a;padding:5px 7px;border-radius:1px}
+.why{
+  margin-top:24px;border:1px solid #37312a;background:var(--panel-2);padding:13px 14px;border-radius:2px;
+}
+.why .k{font-size:10px;letter-spacing:.12em;color:var(--brass);display:block;margin-bottom:6px}
+.why p{font-size:13px;line-height:1.8;color:#c3b9a8}
+.d-foot{font-size:11px;line-height:1.8;color:#6f6659;margin-top:20px;border-top:1px solid var(--line);padding-top:12px}
+
+/* ===== 断点：768 / 1160 ===== */
+@media (min-width:768px){
+  .masthead{padding:16px 32px}
+  .masthead .mark{font-size:13px}
+  .masthead .stamp{display:block}
+  .plate .shotwrap{aspect-ratio:16/9;max-height:70vh}
+  .plate img{object-position:54% 40%}
+  .plate .veil{
+    display:block;position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(9,8,7,.96) 0%,rgba(9,8,7,.62) 34%,rgba(9,8,7,.12) 66%,rgba(9,8,7,.30) 100%);
+  }
+  .plate .lede{position:absolute;left:0;right:0;bottom:0;padding:0 32px 30px}
+  .console{position:sticky;top:0;padding:12px 32px 14px}
+  .console .row{gap:6px;margin-bottom:6px}
+  .rowlabel{font-size:11px;min-width:3.6em}
+  .chip{font-size:13px;padding:9px 11px;min-height:34px}
+  .sheet{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;padding:18px 32px 10px}
+  .nm{font-size:16px}
+  .colophon{padding:40px 32px 56px}
+  .colophon .cols{grid-template-columns:1.25fr 1fr;gap:40px}
+  .d-body{padding:28px 26px 34px}
+  .d-name{font-size:32px}
+}
+@media (min-width:1160px){
+  .sheet{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:22px 40px 12px}
+  .console{padding:14px 40px 16px}
+  .masthead{padding:18px 40px}
+  .plate .lede{padding:0 40px 38px}
+  .detail{margin:26px auto;border:1px solid var(--line);border-radius:2px}
+  .d-grid{grid-template-columns:minmax(0,400px) minmax(0,1fr)}
+  .d-media{position:sticky;top:0;align-self:start}
+  .d-body{padding:32px 32px 36px}
+  .d-meta{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <span class="mark"><span class="dot" aria-hidden="true"></span>安和锦 · CU1958 摄影工作室</span>
+  <span class="stamp">STYLE INDEX / 2026</span>
+</header>
+
+<section class="plate">
+  <div class="shotwrap">
+    <img src="assets/hero.jpg" alt="深色影棚内，一束硬光穿过烟雾，两位不同造型的模特站在光里" width="1920" height="1080" fetchpriority="high">
+    <div class="veil" aria-hidden="true"></div>
+  </div>
+  <div class="lede">
+    <div class="kicker">人像风格图库</div>
+    <h1>挑一种<br>属于你的光</h1>
+    <p class="sub">三十二种拍法，从安静的窗边到霓虹雨夜。每一种都写清了它适合谁、要穿什么、妆怎么化、在哪里拍——看完再约，来了直接开始。</p>
+    <div class="facts">
+      <span><b>32</b> 种风格</span>
+      <span>室内棚拍 <b>15</b> · 户外自然光 <b>6</b> · 混合 <b>11</b></span>
+      <span>四档价位</span>
+    </div>
+  </div>
+</section>
+
+<nav class="console" aria-label="风格筛选">
+  <div class="row" id="rowScene">
+    <span class="rowlabel">拍摄场景</span>
+  </div>
+  <div class="row">
+    <span class="rowlabel">风格族</span>
+    <select class="select" id="familySelect" aria-label="按风格族筛选">
+      <option value="全部">全部风格族</option>
+    </select>
+    <span class="rowlabel" style="min-width:auto;margin-left:4px">价位档</span>
+    <div class="row" id="rowTier" style="margin:0;gap:6px"></div>
+  </div>
+  <div class="row">
+    <div class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 L21 21"></path></svg>
+      <input type="search" id="q" placeholder="搜风格名或标签" aria-label="搜索风格">
+    </div>
+    <select class="select" id="sortSelect" aria-label="排序方式">
+      <option value="index">默认顺序</option>
+      <option value="price">价位由低到高</option>
+    </select>
+  </div>
+  <div class="count">
+    共 <b id="countNum">32</b> 个风格
+    <span class="hint" id="countHint"></span>
+  </div>
+</nav>
+
+<main class="sheet" id="sheet">
+<article class="frame" data-id="airy-japanese" data-i="1" data-scene="混合" data-family="日系清新" data-tier="入门" data-kw="日系清新 空气感写真 小清新 日系清新 混合 清透 治愈 软萌 入门">
+  <button class="frame-btn" type="button" aria-label="查看「日系清新」风格详情">
+    <div class="thumb">
+      <img src="assets/airy-japanese.jpg" alt="日系清新风格样片：像刚洗完头发的下午，软得能捏出水" width="900" height="1200" loading="eager">
+      <span class="tier">入门</span>
+    </div>
+    <div class="strip"><span class="idx">01</span><h3 class="nm">日系清新</h3></div>
+    <p class="tagline">像刚洗完头发的下午，软得能捏出水</p>
+    <div class="tagrow"><span>清透</span><span>治愈</span><span>软萌</span></div>
+  </button>
+</article>
+<article class="frame" data-id="film-japanese" data-i="2" data-scene="混合" data-family="日系胶片" data-tier="常规" data-kw="日系胶片 富士绿 胶片写真 日系胶片 混合 颗粒 复古 日常 常规">
+  <button class="frame-btn" type="button" aria-label="查看「日系胶片」风格详情">
+    <div class="thumb">
+      <img src="assets/film-japanese.jpg" alt="日系胶片风格样片：像九八年夏天拍的旧胶片，颗粒里藏着故事" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">02</span><h3 class="nm">日系胶片</h3></div>
+    <p class="tagline">像九八年夏天拍的旧胶片，颗粒里藏着故事</p>
+    <div class="tagrow"><span>颗粒</span><span>复古</span><span>日常</span></div>
+  </button>
+</article>
+<article class="frame" data-id="korean-clean" data-i="3" data-scene="室内棚拍" data-family="韩系写真" data-tier="入门" data-kw="韩系写真 韩式证件感 清透写真 韩系写真 室内棚拍 干净 韩系 知性 入门">
+  <button class="frame-btn" type="button" aria-label="查看「韩系写真」风格详情">
+    <div class="thumb">
+      <img src="assets/korean-clean.jpg" alt="韩系写真风格样片：韩国偶像练习生那种干净到发光的脸" width="900" height="1200" loading="eager">
+      <span class="tier">入门</span>
+    </div>
+    <div class="strip"><span class="idx">03</span><h3 class="nm">韩系写真</h3></div>
+    <p class="tagline">韩国偶像练习生那种干净到发光的脸</p>
+    <div class="tagrow"><span>干净</span><span>韩系</span><span>知性</span></div>
+  </button>
+</article>
+<article class="frame" data-id="hongkong-retro" data-i="4" data-scene="室内棚拍" data-family="港风复古" data-tier="常规" data-kw="港风复古 港片感 90年代港风 港风复古 室内棚拍 港风 复古 浓烈 常规">
+  <button class="frame-btn" type="button" aria-label="查看「港风复古」风格详情">
+    <div class="thumb">
+      <img src="assets/hongkong-retro.jpg" alt="港风复古风格样片：像走进王家卫电影，红灯牌底下那一眼" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">04</span><h3 class="nm">港风复古</h3></div>
+    <p class="tagline">像走进王家卫电影，红灯牌底下那一眼</p>
+    <div class="tagrow"><span>港风</span><span>复古</span><span>浓烈</span></div>
+  </button>
+</article>
+<article class="frame" data-id="moody-dark" data-i="5" data-scene="混合" data-family="情绪暗调" data-tier="进阶" data-kw="情绪暗调 暗调人像 忧郁风 情绪暗调 混合 暗调 忧郁 高级 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「情绪暗调」风格详情">
+    <div class="thumb">
+      <img src="assets/moody-dark.jpg" alt="情绪暗调风格样片：整个房间只留一盏灯，光打在半张脸上" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">05</span><h3 class="nm">情绪暗调</h3></div>
+    <p class="tagline">整个房间只留一盏灯，光打在半张脸上</p>
+    <div class="tagrow"><span>暗调</span><span>忧郁</span><span>高级</span></div>
+  </button>
+</article>
+<article class="frame" data-id="cinematic" data-i="6" data-scene="混合" data-family="电影感叙事" data-tier="进阶" data-kw="电影感叙事 电影光 宽银幕感 电影感叙事 混合 电影感 故事 宽银幕 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「电影感叙事」风格详情">
+    <div class="thumb">
+      <img src="assets/cinematic.jpg" alt="电影感叙事风格样片：像电影截了一帧，你是那部片子的主角" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">06</span><h3 class="nm">电影感叙事</h3></div>
+    <p class="tagline">像电影截了一帧，你是那部片子的主角</p>
+    <div class="tagrow"><span>电影感</span><span>故事</span><span>宽银幕</span></div>
+  </button>
+</article>
+<article class="frame" data-id="editorial" data-i="7" data-scene="室内棚拍" data-family="时尚杂志" data-tier="进阶" data-kw="时尚杂志大片 杂志风 大片感 时尚杂志 室内棚拍 大片 时尚 锐利 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「时尚杂志大片」风格详情">
+    <div class="thumb">
+      <img src="assets/editorial.jpg" alt="时尚杂志大片风格样片：像翻到某本杂志封面，被你那双眼睛震住" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">07</span><h3 class="nm">时尚杂志大片</h3></div>
+    <p class="tagline">像翻到某本杂志封面，被你那双眼睛震住</p>
+    <div class="tagrow"><span>大片</span><span>时尚</span><span>锐利</span></div>
+  </button>
+</article>
+<article class="frame" data-id="guofeng-hanfu" data-i="8" data-scene="混合" data-family="古风国风" data-tier="定制" data-kw="古风汉服 古装 国风 古风国风 混合 古风 汉服 飘逸 定制">
+  <button class="frame-btn" type="button" aria-label="查看「古风汉服」风格详情">
+    <div class="thumb">
+      <img src="assets/guofeng-hanfu.jpg" alt="古风汉服风格样片：像从一幅古画里走出来的人" width="900" height="1200" loading="eager">
+      <span class="tier">定制</span>
+    </div>
+    <div class="strip"><span class="idx">08</span><h3 class="nm">古风汉服</h3></div>
+    <p class="tagline">像从一幅古画里走出来的人</p>
+    <div class="tagrow"><span>古风</span><span>汉服</span><span>飘逸</span></div>
+  </button>
+</article>
+<article class="frame" data-id="new-chinese" data-i="9" data-scene="室内棚拍" data-family="古风国风" data-tier="进阶" data-kw="新中式 东方美学 水墨感 古风国风 室内棚拍 新中式 东方 留白 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「新中式」风格详情">
+    <div class="thumb">
+      <img src="assets/new-chinese.jpg" alt="新中式风格样片：不穿古装，也能拍出东方那股劲" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">09</span><h3 class="nm">新中式</h3></div>
+    <p class="tagline">不穿古装，也能拍出东方那股劲</p>
+    <div class="tagrow"><span>新中式</span><span>东方</span><span>留白</span></div>
+  </button>
+</article>
+<article class="frame" data-id="anime-cos" data-i="10" data-scene="室内棚拍" data-family="二次元" data-tier="进阶" data-kw="二次元cos 角色扮演 漫展风 二次元 室内棚拍 二次元 cos 高饱和 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「二次元cos」风格详情">
+    <div class="thumb">
+      <img src="assets/anime-cos.jpg" alt="二次元cos风格样片：你从游戏里走出来了，还带了光" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">10</span><h3 class="nm">二次元cos</h3></div>
+    <p class="tagline">你从游戏里走出来了，还带了光</p>
+    <div class="tagrow"><span>二次元</span><span>cos</span><span>高饱和</span></div>
+  </button>
+</article>
+<article class="frame" data-id="cyberpunk-neon" data-i="11" data-scene="室内棚拍" data-family="赛博霓虹" data-tier="进阶" data-kw="赛博朋克霓虹 赛博朋克 霓虹夜 赛博霓虹 室内棚拍 赛博 霓虹 未来感 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「赛博朋克霓虹」风格详情">
+    <div class="thumb">
+      <img src="assets/cyberpunk-neon.jpg" alt="赛博朋克霓虹风格样片：你站在二〇七七年的雨里，整个人发着光" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">11</span><h3 class="nm">赛博朋克霓虹</h3></div>
+    <p class="tagline">你站在二〇七七年的雨里，整个人发着光</p>
+    <div class="tagrow"><span>赛博</span><span>霓虹</span><span>未来感</span></div>
+  </button>
+</article>
+<article class="frame" data-id="mono-contrast" data-i="12" data-scene="室内棚拍" data-family="黑白极简" data-tier="进阶" data-kw="黑白高反差 黑白硬光 剪影感 黑白极简 室内棚拍 黑白 硬光 极简 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「黑白高反差」风格详情">
+    <div class="thumb">
+      <img src="assets/mono-contrast.jpg" alt="黑白高反差风格样片：黑白两色，你的脸被光照得像刀刻" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">12</span><h3 class="nm">黑白高反差</h3></div>
+    <p class="tagline">黑白两色，你的脸被光照得像刀刻</p>
+    <div class="tagrow"><span>黑白</span><span>硬光</span><span>极简</span></div>
+  </button>
+</article>
+<article class="frame" data-id="solid-bg-id" data-i="13" data-scene="室内棚拍" data-family="职业形象" data-tier="入门" data-kw="纯色证件照 证件照 标准照 职业形象 室内棚拍 证件 标准 正式 入门">
+  <button class="frame-btn" type="button" aria-label="查看「纯色证件照」风格详情">
+    <div class="thumb">
+      <img src="assets/solid-bg-id.jpg" alt="纯色证件照风格样片：找工作、签证、报名都要用的那张标准照" width="900" height="1200" loading="eager">
+      <span class="tier">入门</span>
+    </div>
+    <div class="strip"><span class="idx">13</span><h3 class="nm">纯色证件照</h3></div>
+    <p class="tagline">找工作、签证、报名都要用的那张标准照</p>
+    <div class="tagrow"><span>证件</span><span>标准</span><span>正式</span></div>
+  </button>
+</article>
+<article class="frame" data-id="business-portrait" data-i="14" data-scene="室内棚拍" data-family="职业形象" data-tier="常规" data-kw="商务形象照 职业形象 职场照 职业形象 室内棚拍 商务 专业 可信 常规">
+  <button class="frame-btn" type="button" aria-label="查看「商务形象照」风格详情">
+    <div class="thumb">
+      <img src="assets/business-portrait.jpg" alt="商务形象照风格样片：像公司官网那种一看就靠谱的脸" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">14</span><h3 class="nm">商务形象照</h3></div>
+    <p class="tagline">像公司官网那种一看就靠谱的脸</p>
+    <div class="tagrow"><span>商务</span><span>专业</span><span>可信</span></div>
+  </button>
+</article>
+<article class="frame" data-id="maternity-family" data-i="15" data-scene="室内棚拍" data-family="家庭纪事" data-tier="常规" data-kw="孕婴亲子 孕妇照 亲子照 家庭纪事 室内棚拍 亲子 温暖 纪念 常规">
+  <button class="frame-btn" type="button" aria-label="查看「孕婴亲子」风格详情">
+    <div class="thumb">
+      <img src="assets/maternity-family.jpg" alt="孕婴亲子风格样片：把肚子里那个小的，和家里那个小的，一起收进照片" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">15</span><h3 class="nm">孕婴亲子</h3></div>
+    <p class="tagline">把肚子里那个小的，和家里那个小的，一起收进照片</p>
+    <div class="tagrow"><span>亲子</span><span>温暖</span><span>纪念</span></div>
+  </button>
+</article>
+<article class="frame" data-id="couple-wedding" data-i="16" data-scene="混合" data-family="情侣婚纱" data-tier="定制" data-kw="情侣婚纱 婚纱照 情侣写真 情侣婚纱 混合 婚纱 情侣 浪漫 定制">
+  <button class="frame-btn" type="button" aria-label="查看「情侣婚纱」风格详情">
+    <div class="thumb">
+      <img src="assets/couple-wedding.jpg" alt="情侣婚纱风格样片：不用办婚礼，也能拍一组像结婚照的片" width="900" height="1200" loading="eager">
+      <span class="tier">定制</span>
+    </div>
+    <div class="strip"><span class="idx">16</span><h3 class="nm">情侣婚纱</h3></div>
+    <p class="tagline">不用办婚礼，也能拍一组像结婚照的片</p>
+    <div class="tagrow"><span>婚纱</span><span>情侣</span><span>浪漫</span></div>
+  </button>
+</article>
+<article class="frame" data-id="jk-uniform" data-i="17" data-scene="混合" data-family="二次元" data-tier="入门" data-kw="jk制服 水手服 学院风 二次元 混合 jk 学院 青春 入门">
+  <button class="frame-btn" type="button" aria-label="查看「JK制服」风格详情">
+    <div class="thumb">
+      <img src="assets/jk-uniform.jpg" alt="JK制服风格样片：像日剧里放学路上那一眼" width="900" height="1200" loading="eager">
+      <span class="tier">入门</span>
+    </div>
+    <div class="strip"><span class="idx">17</span><h3 class="nm">JK制服</h3></div>
+    <p class="tagline">像日剧里放学路上那一眼</p>
+    <div class="tagrow"><span>JK</span><span>学院</span><span>青春</span></div>
+  </button>
+</article>
+<article class="frame" data-id="streetwear" data-i="18" data-scene="户外自然光" data-family="街头潮流" data-tier="常规" data-kw="街头潮拍 潮流街拍 闪光灯街拍 街头潮流 户外自然光 街头 潮 闪光灯 常规">
+  <button class="frame-btn" type="button" aria-label="查看「街头潮拍」风格详情">
+    <div class="thumb">
+      <img src="assets/streetwear.jpg" alt="街头潮拍风格样片：黄昏路灯下，你比那堵涂鸦墙还抢眼" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">18</span><h3 class="nm">街头潮拍</h3></div>
+    <p class="tagline">黄昏路灯下，你比那堵涂鸦墙还抢眼</p>
+    <div class="tagrow"><span>街头</span><span>潮</span><span>闪光灯</span></div>
+  </button>
+</article>
+<article class="frame" data-id="backlight-rim" data-i="19" data-scene="户外自然光" data-family="光影实验" data-tier="进阶" data-kw="逆光轮廓光 金边逆光 剪影轮廓 光影实验 户外自然光 逆光 金边 剪影 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「逆光轮廓光」风格详情">
+    <div class="thumb">
+      <img src="assets/backlight-rim.jpg" alt="逆光轮廓光风格样片：太阳在你身后，你整个人镶了一圈金边" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">19</span><h3 class="nm">逆光轮廓光</h3></div>
+    <p class="tagline">太阳在你身后，你整个人镶了一圈金边</p>
+    <div class="tagrow"><span>逆光</span><span>金边</span><span>剪影</span></div>
+  </button>
+</article>
+<article class="frame" data-id="lifestyle-doc" data-i="20" data-scene="户外自然光" data-family="纪实生活" data-tier="常规" data-kw="自然纪实 生活方式 抓拍纪实 纪实生活 户外自然光 纪实 日常 真实 常规">
+  <button class="frame-btn" type="button" aria-label="查看「自然纪实」风格详情">
+    <div class="thumb">
+      <img src="assets/lifestyle-doc.jpg" alt="自然纪实风格样片：不是在拍照，是你本来就在过的那一天" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">20</span><h3 class="nm">自然纪实</h3></div>
+    <p class="tagline">不是在拍照，是你本来就在过的那一天</p>
+    <div class="tagrow"><span>纪实</span><span>日常</span><span>真实</span></div>
+  </button>
+</article>
+<article class="frame" data-id="underwater-rain" data-i="21" data-scene="混合" data-family="光影实验" data-tier="进阶" data-kw="水下雨景 水下写真 雨夜氛围 光影实验 混合 水下 湿润 梦幻 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「水下雨景」风格详情">
+    <div class="thumb">
+      <img src="assets/underwater-rain.jpg" alt="水下雨景风格样片：头发飘在水里，你像一条鱼" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">21</span><h3 class="nm">水下雨景</h3></div>
+    <p class="tagline">头发飘在水里，你像一条鱼</p>
+    <div class="tagrow"><span>水下</span><span>湿润</span><span>梦幻</span></div>
+  </button>
+</article>
+<article class="frame" data-id="smoke-projection" data-i="22" data-scene="室内棚拍" data-family="光影实验" data-tier="进阶" data-kw="烟雾投影创意 投影光 光影创意 光影实验 室内棚拍 投影 烟雾 戏剧 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「烟雾投影创意」风格详情">
+    <div class="thumb">
+      <img src="assets/smoke-projection.jpg" alt="烟雾投影创意风格样片：光在你脸上切出一道一道，像电影里的谜" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">22</span><h3 class="nm">烟雾投影创意</h3></div>
+    <p class="tagline">光在你脸上切出一道一道，像电影里的谜</p>
+    <div class="tagrow"><span>投影</span><span>烟雾</span><span>戏剧</span></div>
+  </button>
+</article>
+<article class="frame" data-id="multiple-exposure" data-i="23" data-scene="混合" data-family="光影实验" data-tier="进阶" data-kw="多重曝光 叠影 双曝 光影实验 混合 叠影 诗意 实验 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「多重曝光」风格详情">
+    <div class="thumb">
+      <img src="assets/multiple-exposure.jpg" alt="多重曝光风格样片：一个人，两套人生，叠在同一张照片里" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">23</span><h3 class="nm">多重曝光</h3></div>
+    <p class="tagline">一个人，两套人生，叠在同一张照片里</p>
+    <div class="tagrow"><span>叠影</span><span>诗意</span><span>实验</span></div>
+  </button>
+</article>
+<article class="frame" data-id="long-exposure" data-i="24" data-scene="户外自然光" data-family="光影实验" data-tier="进阶" data-kw="长曝环境人像 慢门人像 拖影 光影实验 户外自然光 慢门 城市 时间 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「长曝环境人像」风格详情">
+    <div class="thumb">
+      <img src="assets/long-exposure.jpg" alt="长曝环境人像风格样片：全世界都在动，只有你是静的" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">24</span><h3 class="nm">长曝环境人像</h3></div>
+    <p class="tagline">全世界都在动，只有你是静的</p>
+    <div class="tagrow"><span>慢门</span><span>城市</span><span>时间</span></div>
+  </button>
+</article>
+<article class="frame" data-id="wetplate" data-i="25" data-scene="室内棚拍" data-family="黑白极简" data-tier="定制" data-kw="古典湿版 湿版摄影 古典肖像 黑白极简 室内棚拍 湿版 古典 工艺 定制">
+  <button class="frame-btn" type="button" aria-label="查看「古典湿版」风格详情">
+    <div class="thumb">
+      <img src="assets/wetplate.jpg" alt="古典湿版风格样片：像你太爷爷那年代拍的肖像，连玻璃上的划痕都留着" width="900" height="1200" loading="eager">
+      <span class="tier">定制</span>
+    </div>
+    <div class="strip"><span class="idx">25</span><h3 class="nm">古典湿版</h3></div>
+    <p class="tagline">像你太爷爷那年代拍的肖像，连玻璃上的划痕都留着</p>
+    <div class="tagrow"><span>湿版</span><span>古典</span><span>工艺</span></div>
+  </button>
+</article>
+<article class="frame" data-id="american-retro" data-i="26" data-scene="混合" data-family="复古胶片" data-tier="常规" data-kw="美式复古暖调 美式胶片 公路复古 复古胶片 混合 美式 公路 复古 常规">
+  <button class="frame-btn" type="button" aria-label="查看「美式复古暖调」风格详情">
+    <div class="thumb">
+      <img src="assets/american-retro.jpg" alt="美式复古暖调风格样片：公路电影里，你刚从那辆老爷车下来" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">26</span><h3 class="nm">美式复古暖调</h3></div>
+    <p class="tagline">公路电影里，你刚从那辆老爷车下来</p>
+    <div class="tagrow"><span>美式</span><span>公路</span><span>复古</span></div>
+  </button>
+</article>
+<article class="frame" data-id="french-lazy" data-i="27" data-scene="混合" data-family="复古胶片" data-tier="常规" data-kw="法式慵懒 法式随性 南法阳光 复古胶片 混合 法式 慵懒 松弛 常规">
+  <button class="frame-btn" type="button" aria-label="查看「法式慵懒」风格详情">
+    <div class="thumb">
+      <img src="assets/french-lazy.jpg" alt="法式慵懒风格样片：南法下午，你刚喝完一杯咖啡不想动" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">27</span><h3 class="nm">法式慵懒</h3></div>
+    <p class="tagline">南法下午，你刚喝完一杯咖啡不想动</p>
+    <div class="tagrow"><span>法式</span><span>慵懒</span><span>松弛</span></div>
+  </button>
+</article>
+<article class="frame" data-id="minimal-grey" data-i="28" data-scene="室内棚拍" data-family="黑白极简" data-tier="常规" data-kw="极简高级灰 高级灰 性冷淡风 黑白极简 室内棚拍 极简 灰 克制 常规">
+  <button class="frame-btn" type="button" aria-label="查看「极简高级灰」风格详情">
+    <div class="thumb">
+      <img src="assets/minimal-grey.jpg" alt="极简高级灰风格样片：整个画面只有灰，和你" width="900" height="1200" loading="eager">
+      <span class="tier">常规</span>
+    </div>
+    <div class="strip"><span class="idx">28</span><h3 class="nm">极简高级灰</h3></div>
+    <p class="tagline">整个画面只有灰，和你</p>
+    <div class="tagrow"><span>极简</span><span>灰</span><span>克制</span></div>
+  </button>
+</article>
+<article class="frame" data-id="beauty-closeup" data-i="29" data-scene="室内棚拍" data-family="时尚杂志" data-tier="进阶" data-kw="美妆特写 彩妆大片 面部特写 时尚杂志 室内棚拍 特写 美妆 水光 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「美妆特写」风格详情">
+    <div class="thumb">
+      <img src="assets/beauty-closeup.jpg" alt="美妆特写风格样片：只有你这张脸，占满整个屏幕" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">29</span><h3 class="nm">美妆特写</h3></div>
+    <p class="tagline">只有你这张脸，占满整个屏幕</p>
+    <div class="tagrow"><span>特写</span><span>美妆</span><span>水光</span></div>
+  </button>
+</article>
+<article class="frame" data-id="storytelling" data-i="30" data-scene="户外自然光" data-family="电影感叙事" data-tier="定制" data-kw="剧情式叙事 故事感 情景写真 电影感叙事 户外自然光 故事 剧情 叙事 定制">
+  <button class="frame-btn" type="button" aria-label="查看「剧情式叙事」风格详情">
+    <div class="thumb">
+      <img src="assets/storytelling.jpg" alt="剧情式叙事风格样片：你不是在拍照，你在演一段你自己的故事" width="900" height="1200" loading="eager">
+      <span class="tier">定制</span>
+    </div>
+    <div class="strip"><span class="idx">30</span><h3 class="nm">剧情式叙事</h3></div>
+    <p class="tagline">你不是在拍照，你在演一段你自己的故事</p>
+    <div class="tagrow"><span>故事</span><span>剧情</span><span>叙事</span></div>
+  </button>
+</article>
+<article class="frame" data-id="fashion-lookbook" data-i="31" data-scene="户外自然光" data-family="时尚杂志" data-tier="进阶" data-kw="服装穿搭 穿搭片 lookbook 时尚杂志 户外自然光 穿搭 lookbook 全身 进阶">
+  <button class="frame-btn" type="button" aria-label="查看「服装穿搭」风格详情">
+    <div class="thumb">
+      <img src="assets/fashion-lookbook.jpg" alt="服装穿搭风格样片：你穿的那件衣服，值得一整组照片" width="900" height="1200" loading="eager">
+      <span class="tier">进阶</span>
+    </div>
+    <div class="strip"><span class="idx">31</span><h3 class="nm">服装穿搭</h3></div>
+    <p class="tagline">你穿的那件衣服，值得一整组照片</p>
+    <div class="tagrow"><span>穿搭</span><span>lookbook</span><span>全身</span></div>
+  </button>
+</article>
+<article class="frame" data-id="high-key-white" data-i="32" data-scene="室内棚拍" data-family="日系清新" data-tier="入门" data-kw="高调纯白 纯白高调 白色系 日系清新 室内棚拍 高调 纯白 空灵 入门">
+  <button class="frame-btn" type="button" aria-label="查看「高调纯白」风格详情">
+    <div class="thumb">
+      <img src="assets/high-key-white.jpg" alt="高调纯白风格样片：你像从一团光里走出来的人" width="900" height="1200" loading="eager">
+      <span class="tier">入门</span>
+    </div>
+    <div class="strip"><span class="idx">32</span><h3 class="nm">高调纯白</h3></div>
+    <p class="tagline">你像从一团光里走出来的人</p>
+    <div class="tagrow"><span>高调</span><span>纯白</span><span>空灵</span></div>
+  </button>
+</article>
+</main>
+
+<section class="empty" id="empty">
+  <h2>这个组合里没有风格</h2>
+  <p>换个场景或价位试试，或者直接搜风格名——三十二种拍法，总有一种对得上你。</p>
+  <button type="button" id="resetBtn">清空筛选</button>
+</section>
+
+<footer class="colophon">
+  <div class="cols">
+    <div>
+      <h2>价位档怎么理解</h2>
+      <div class="tiers">
+        <div class="tierrow"><dt>入门</dt><dd>单场景、单造型、时长最短，出片量精简。适合先试一次、或只要一张能用的头像与证件。</dd></div>
+        <div class="tierrow"><dt>常规</dt><dd>常规布光与场景，含基础妆造与选片，多数日常写真落在这档。</dd></div>
+        <div class="tierrow"><dt>进阶</dt><dd>需要特殊布光、特殊工艺或特殊场地：烟雾投影、霓虹、水下、湿版、多重曝光这类。</dd></div>
+        <div class="tierrow"><dt>定制</dt><dd>双人或多人、多场景串联、剧情式创作、定制服装与道具，按方案单独沟通。</dd></div>
+      </div>
+    </div>
+    <div>
+      <h2>到店前</h2>
+      <ul class="notes">
+        <li>价位只标相对档位，具体报价、档期与出片张数以到店沟通为准。</li>
+        <li>服装可自带；特殊风格（古风、cos、婚纱）建议提前说明尺码与造型需求。</li>
+        <li>皮肤敏感或对角质产品过敏，预约时先说明，妆造会换方案。</li>
+        <li>户外自然光受天气影响，光线不理想时同价位可改期或转室内等效风格。</li>
+      </ul>
+      <p>本图库样片为风格示意，用于说明光、色与造型方向，非客片。</p>
+    </div>
+  </div>
+</footer>
+
+<div class="veil-layer" id="veilLayer" role="dialog" aria-modal="true" aria-label="风格详情">
+  <div class="detail" id="detail"></div>
+</div>
+
+<script>
+/* ===== 数据（由 styles.json 注入） ===== */
+const DATA = {"meta":{"title":"人像风格图库","studio":"常州经开区 安和锦·CU1958 创意园 摄影工作室","updated":"2026-11","count":32,"priceNote":"价位为相对档位，具体报价以店内沟通为准"},"styles":[{"id":"airy-japanese","name":"日系清新","aliases":["空气感写真","小清新"],"family":"日系清新","scene":"混合","sceneDetail":"窗边自然光 + 白墙浅木棚","tagline":"像刚洗完头发的下午，软得能捏出水","desc":"整组画面压亮放柔，白墙浅木色打底，人物穿棉麻光脚坐窗边，眼神放松像在发呆，翻到日系杂志内页那种感觉。","audience":{"age":"18–28 岁","gender":"偏女性，闺蜜双人也可","body":"微胖到纤细都能拍","skin":"白皮、暖黄皮最出片","occasions":["生日纪念","社交头像","毕业季"]},"wardrobe":"米白棉麻吊带裙或浅鹅黄连身短裙，光脚；避开大 LOGO 和纯黑，颜色越淡越上镜。","makeup":"清透底妆、橘调腮红、眉毛顺毛流描；头发自然微卷，别画粗黑眼线和大红唇。","shootTips":["站窗边让光从侧面打过来","不要直视镜头，低头或看窗外","动作慢一点，撩头发最自然"],"light":"大尺寸柔光箱 45° 侧上 + 白墙反补","priceTier":"入门","duration":"1 小时","tags":["清透","治愈","软萌"],"why":"第一次拍写真不踩雷，出片率高，适合发朋友圈九宫格。","idx":"01"},{"id":"film-japanese","name":"日系胶片","aliases":["富士绿","胶片写真"],"family":"日系胶片","scene":"混合","sceneDetail":"便利店门口 + 海边夕阳 + 街拍","tagline":"像九八年夏天拍的旧胶片，颗粒里藏着故事","desc":"整组带明显胶片颗粒，绿色压成富士那种冷调青绿，人物走在便利店、铁轨、海边，光比硬，天空经常过曝一片白。","audience":{"age":"18–30 岁","gender":"男女皆可，情侣合拍很有味道","body":"对身材包容度高","skin":"健康肤色、小麦色更出彩","occasions":["情侣纪念","生日","旅行随拍"]},"wardrobe":"浅蓝牛仔外套 + 白 T + 短裙，或格子衬衫配工装裤；颜色越日常越像旧片。","makeup":"底妆薄透、雀斑可以留着别遮，嘴唇涂一点润唇膏就好；头发要的是刚睡醒那种乱。","shootTips":["直接对着街边走，不要摆姿势","让摄影师在前面抓拍","黄昏逆光那几分钟最出片"],"light":"机顶直闪硬光 + 自然光，保留胶片颗粒","priceTier":"常规","duration":"1.5 小时","tags":["颗粒","复古","日常"],"why":"想拍一组不像刻意摆拍的照片，像随手记录生活。","idx":"02"},{"id":"korean-clean","name":"韩系写真","aliases":["韩式证件感","清透写真"],"family":"韩系写真","scene":"室内棚拍","sceneDetail":"灰色无缝背景 + 大型柔光箱","tagline":"韩国偶像练习生那种干净到发光的脸","desc":"灰背景前面一个人，光从正前上方打下来，皮肤磨得干净透亮，头发一丝不乱，整组像韩式证件照的进阶版。","audience":{"age":"20–35 岁","gender":"偏女性","body":"偏瘦到标准身材更上镜","skin":"白皮、冷白皮最佳","occasions":["社交头像","求职相亲","个人纪念"]},"wardrobe":"燕麦色针织上衣或米色衬衫，V 领显脖子长；别穿花的，纯色最稳。","makeup":"底妆要无瑕、唇釉选奶茶色、眉毛平一点；头发做柔顺，假睫毛别太夸张。","shootTips":["下巴微收、肩膀打开","眼神看镜头但别瞪","手轻轻搭在腿上就行"],"light":"大型八角柔光箱正前 + 两侧白反","priceTier":"入门","duration":"1 小时","tags":["干净","韩系","知性"],"why":"想换一张能用到所有社交平台的头像，又怕太假。","idx":"03"},{"id":"hongkong-retro","name":"港风复古","aliases":["港片感","90年代港风"],"family":"港风复古","scene":"室内棚拍","sceneDetail":"茶餐厅布景 + 霓虹灯牌 + 红绿色调","tagline":"像走进王家卫电影，红灯牌底下那一眼","desc":"整组被暖黄钨丝灯罩着，红和绿撞在一起，人物穿旗袍或格子衬衫靠在墙边，眼神带点迷离，像九十年代港片截图。","audience":{"age":"22–35 岁","gender":"偏女性，男性穿花衬衫也可","body":"身材线条明显的更出彩","skin":"暖黄皮、港风肌最对味","occasions":["生日大片","情侣纪念","主题创作"]},"wardrobe":"红色或墨绿旗袍，或格子衬衫 + 高腰裤；头发要吹起来，别穿运动风。","makeup":"红唇一定要正、眉形挑一点、底妆哑光；头发做大波浪，别画烟熏。","shootTips":["身体靠墙、头微微侧","眼睛半睁不看镜头","拿个道具比如杯子或扇子"],"light":"钨丝灯 3200K 暖色 + 红绿分色色片","priceTier":"常规","duration":"1.5 小时","tags":["港风","复古","浓烈"],"why":"想拍一组有故事感的、不像谁都有的照片。","idx":"04"},{"id":"moody-dark","name":"情绪暗调","aliases":["暗调人像","忧郁风"],"family":"情绪暗调","scene":"混合","sceneDetail":"近黑背景 + 单一光源侧窗","tagline":"整个房间只留一盏灯，光打在半张脸上","desc":"背景几乎全黑，只有一束光从侧面斜下来，照亮半张脸和肩膀，衣服全是深灰黑色，眼神带点忧郁，像在想什么事。","audience":{"age":"22–35 岁","gender":"男女皆可","body":"肩膀线条明显的更出片","skin":"白皮在暗里更亮","occasions":["个人创作","杂志投稿","情绪纪念"]},"wardrobe":"黑色高领毛衣或深灰西装，纯色无图案，布料要有质感。","makeup":"底妆压暗、眉毛浓一点、嘴唇裸色；头发别太整齐，要那种没心思打理的感觉。","shootTips":["脸往光源方向转 45 度","另一眼让它藏在阴影里","呼吸放慢，别笑"],"light":"单灯伦勃朗光 + 黑旗吸光","priceTier":"进阶","duration":"2 小时","tags":["暗调","忧郁","高级"],"why":"不想拍甜的，想拍一组有重量感的情绪片。","idx":"05"},{"id":"cinematic","name":"电影感叙事","aliases":["电影光","宽银幕感"],"family":"电影感叙事","scene":"混合","sceneDetail":"城市街景 + 车窗 + 前景遮挡","tagline":"像电影截了一帧，你是那部片子的主角","desc":"画面有明显宽银幕感，青橙色调撞在一起，前景经常有树叶或车窗框着你，人物站在画面三分之一处，像刚说完一句台词。","audience":{"age":"22–35 岁","gender":"男女皆可，双人更有戏","body":"标准身材最佳","skin":"任何肤色","occasions":["情侣大片","个人创作","生日纪念"]},"wardrobe":"风衣或黑色夹克，男生穿西装外套；颜色沉一点，别穿亮黄亮粉。","makeup":"男生干净就行，女生底妆哑光、嘴唇豆沙色；头发要有被风吹乱的痕迹。","shootTips":["不要站在画面正中间","走路的时候回头那一下","让镜头隔个东西拍你"],"light":"青橙双色温分离光 + 前景雾","priceTier":"进阶","duration":"2 小时","tags":["电影感","故事","宽银幕"],"why":"想拍一组像电影截图、能当电脑壁纸的片子。","idx":"06"},{"id":"editorial","name":"时尚杂志大片","aliases":["杂志风","大片感"],"family":"时尚杂志","scene":"室内棚拍","sceneDetail":"纯色硬背景 + 方向性硬光","tagline":"像翻到某本杂志封面，被你那双眼睛震住","desc":"纯色背景（正红、钴蓝、黑），光从一个很硬的方向砸下来，影子边界清楚，人物造型夸张，戴大耳环，像杂志内页时装大片。","audience":{"age":"20–30 岁","gender":"偏女性","body":"身材线条明显、脸骨感强的更出彩","skin":"白皮、冷白皮最上镜","occasions":["模特样片","品牌合作","个人创作"]},"wardrobe":"廓形西装或撞色连衣裙，戴大耳环和造型项链；别穿软塌塌的居家服。","makeup":"底妆哑光、眉形锋利、口红正红或吃土色；眼妆可以重一点，头发做湿发背头。","shootTips":["身体要扭、肩要压","下巴抬起来","眼神要狠别笑"],"light":"裸灯硬光 45° + 黑背景吸光","priceTier":"进阶","duration":"2 小时","tags":["大片","时尚","锐利"],"why":"想证明自己也能拍硬照，不是只会拍生活照。","idx":"07"},{"id":"guofeng-hanfu","name":"古风汉服","aliases":["古装","国风"],"family":"古风国风","scene":"混合","sceneDetail":"园林竹影 + 亭台 + 飘带","tagline":"像从一幅古画里走出来的人","desc":"穿全套汉服，站在竹林或水边，袖子飘起来，光线柔得像隔了一层纱，颜色是墨绿、靛蓝、朱砂，像古画里的人物。","audience":{"age":"18–35 岁","gender":"偏女性，男性穿宋制也可","body":"任何身材都能用汉服撑住","skin":"白皮最佳","occasions":["汉服写真","生日纪念","国风创作"]},"wardrobe":"全套汉服（宋制或明制）+ 披帛，颜色选月白、藕粉、石青；别穿高跟鞋。","makeup":"汉服妆造：柳叶眉、花钿、珍珠面靥；头发要盘起来戴发簪，这一组妆造是重头。","shootTips":["走路要慢、袖子甩起来","回头看镜头那一下","让风吹头发和披帛"],"light":"大面积柔光 + 竹林漫射","priceTier":"定制","duration":"半天","tags":["古风","汉服","飘逸"],"why":"想圆一个古装梦，拍一组能当挂画的照片。","idx":"08"},{"id":"new-chinese","name":"新中式","aliases":["东方美学","水墨感"],"family":"古风国风","scene":"室内棚拍","sceneDetail":"水墨屏风 + 茶具 + 留白构图","tagline":"不穿古装，也能拍出东方那股劲","desc":"黑背景或水墨屏风前，穿一件立领盘扣上衣，画面留大量空白，光暖而暗，对称构图，像现代版的工笔画。","audience":{"age":"25–40 岁","gender":"男女皆可","body":"偏瘦到标准身材更出片","skin":"暖黄皮最对味","occasions":["品牌形象","个人纪念","生日大片"]},"wardrobe":"黑色或藏青立领盘扣上衣，阔腿裤；别穿花纹，素色最显气质。","makeup":"底妆干净、眉毛描长、嘴唇豆沙色；头发低盘或顺直，别化韩式平眉。","shootTips":["坐在茶桌前、手搭在杯沿","眼睛看斜下方","别笑，要静"],"light":"暖色侧光 + 屏风投影","priceTier":"进阶","duration":"2 小时","tags":["新中式","东方","留白"],"why":"不想太古装，但想拍一组有东方气韵的照片。","idx":"09"},{"id":"anime-cos","name":"二次元cos","aliases":["角色扮演","漫展风"],"family":"二次元","scene":"室内棚拍","sceneDetail":"高饱和背景 + 金属皮革道具","tagline":"你从游戏里走出来了，还带了光","desc":"穿完整的机甲或游戏角色服，光打得硬而彩，金属和皮革反光明显，人物姿势有张力，像游戏 CG 截图变成真人。","audience":{"age":"16–28 岁","gender":"男女皆可","body":"角色服本身塑形，任何身材都能靠服装撑","skin":"任何肤色","occasions":["漫展","cosplay 创作","游戏同好"]},"wardrobe":"自带完整 cos 服（含铠甲、道具），工作室只提供光和背景；别穿日常服凑。","makeup":"眼妆要重、眼线拉长、贴假睫毛；伤口妆或油彩需要提前跟摄影师沟通。","shootTips":["姿势要拉开、别缩着","拿道具的手要有劲","眼神看镜头要像在战斗"],"light":"硬主光 + 彩色轮廓光分离","priceTier":"进阶","duration":"2 小时","tags":["二次元","cos","高饱和"],"why":"想把喜欢的角色真正变成自己，留一套能发同好圈的片。","idx":"10"},{"id":"cyberpunk-neon","name":"赛博朋克霓虹","aliases":["赛博朋克","霓虹夜"],"family":"赛博霓虹","scene":"室内棚拍","sceneDetail":"雨夜街道 + 霓虹管 + 烟雾","tagline":"你站在二〇七七年的雨里，整个人发着光","desc":"整个空间被洋红和青色霓虹泡着，地上有水反光，烟雾飘在中间，人物穿机能外套戴护目镜，像游戏开场动画。","audience":{"age":"18–30 岁","gender":"男女皆可","body":"机能风宽松，对身材包容度高","skin":"任何肤色","occasions":["二次元创作","主题拍摄","生日大片"]},"wardrobe":"机能风夹克、反光条、工装裤；颜色黑灰荧光，别穿棉布。","makeup":"眼妆画点荧光色（眼下或眉尾），头发贴头皮或扎起来；别化甜美妆。","shootTips":["站在烟雾中间","让霓虹打在脸上","动作要冷，别笑"],"light":"洋红青双色片 + 地烟 + 反光板","priceTier":"进阶","duration":"2 小时","tags":["赛博","霓虹","未来感"],"why":"想拍一组不像地球人、发出去能炸朋友圈的照片。","idx":"11"},{"id":"mono-contrast","name":"黑白高反差","aliases":["黑白硬光","剪影感"],"family":"黑白极简","scene":"室内棚拍","sceneDetail":"纯黑背景 + 裸灯硬闪","tagline":"黑白两色，你的脸被光照得像刀刻","desc":"整张照片只剩黑白灰，光从一个很硬的方向闪过来，影子黑得发亮，皮肤纹理和毛孔都看得清，像老电影里的硬照。","audience":{"age":"20–40 岁","gender":"男女皆可","body":"脸骨感强、轮廓分明的更出彩","skin":"任何肤色（黑白里看骨相）","occasions":["个人形象","品牌合作","艺术创作"]},"wardrobe":"黑色高领或白衬衫，纯色无图案；布料要有垂坠感。","makeup":"底妆别打太厚，让皮肤质感出来；眉毛和胡子可以留一点，别化浓妆。","shootTips":["脸转 30 度","让影子切在脸上","眼神看镜头别躲"],"light":"裸灯硬闪 + 纯黑背景","priceTier":"进阶","duration":"2 小时","tags":["黑白","硬光","极简"],"why":"想拍一组不挑肤色、不挑年代的经典照片。","idx":"12"},{"id":"solid-bg-id","name":"纯色证件照","aliases":["证件照","标准照"],"family":"职业形象","scene":"室内棚拍","sceneDetail":"白蓝灰无缝背景","tagline":"找工作、签证、报名都要用的那张标准照","desc":"正面坐好，光从正面均匀打下来，背景是纯白、浅蓝或灰，人穿衬衫或西装，表情端正，像所有正式场合要用的那张脸。","audience":{"age":"18–60 岁","gender":"男女皆可","body":"对身材包容度高","skin":"任何肤色","occasions":["求职","签证","报名"]},"wardrobe":"白衬衫或深色西装，别穿圆领 T 和大花纹；领口要熨平。","makeup":"女生淡妆、眉毛整齐、嘴唇涂个口红提气色；男生刮胡子，头发别挡眉毛。","shootTips":["坐直、肩膀放平","下巴微收","眼睛看镜头不要眯"],"light":"双柔光箱正前对称 + 白反","priceTier":"入门","duration":"1 小时","tags":["证件","标准","正式"],"why":"刚需，要一张能用三年、不用重拍的照片。","idx":"13"},{"id":"business-portrait","name":"商务形象照","aliases":["职业形象","职场照"],"family":"职业形象","scene":"室内棚拍","sceneDetail":"深灰藏青背景 + 伦勃朗光","tagline":"像公司官网那种一看就靠谱的脸","desc":"比证件照多一点设计感，背景深灰，光从斜上方下来，人穿剪裁合身的西装，手拿笔记本或看窗外，像企业高管官网照。","audience":{"age":"28–45 岁","gender":"偏男性，女性职业装也可","body":"标准身材最佳","skin":"任何肤色","occasions":["企业官网","名片","演讲资料"]},"wardrobe":"剪裁合身的西装（深蓝、炭灰），白衬衫；别穿休闲西装。","makeup":"女生底妆干净、眉毛利落；男生修个胡子、头发抓整齐，别化眼线。","shootTips":["肩膀打开、下巴微抬","眼神坚定","手搭在桌沿或拿支笔"],"light":"伦勃朗主光 + 后轮廓光","priceTier":"常规","duration":"1.5 小时","tags":["商务","专业","可信"],"why":"换一张能代表自己职业形象的头像，比自拍正式。","idx":"14"},{"id":"maternity-family","name":"孕婴亲子","aliases":["孕妇照","亲子照"],"family":"家庭纪事","scene":"室内棚拍","sceneDetail":"暖米色棚 + 薄纱裙 + 自然互动","tagline":"把肚子里那个小的，和家里那个小的，一起收进照片","desc":"暖光棚里，准妈妈穿薄纱裙，爸爸或大宝靠在旁边，光很柔，动作是真实互动——摸肚子、亲额头，像家庭相册。","audience":{"age":"25–38 岁","gender":"准妈妈 + 爸爸或大宝","body":"孕肚状态本身就是主题","skin":"任何肤色","occasions":["孕妇纪念","百天周岁","家庭记录"]},"wardrobe":"浅米色、裸色针织裙或薄纱；全家穿同色系，别穿黑和大花。","makeup":"淡妆、底妆要透气别闷；头发松松挽起来，别做浓妆。","shootTips":["让妈妈坐着、爸爸蹲在旁边","让孩子自己玩，摄影师抓拍","别让小孩看镜头"],"light":"大型柔光箱 + 暖色温","priceTier":"常规","duration":"1.5 小时","tags":["亲子","温暖","纪念"],"why":"想给肚子里那个和家里这个，留一套不靠摆拍的纪念。","idx":"15"},{"id":"couple-wedding","name":"情侣婚纱","aliases":["婚纱照","情侣写真"],"family":"情侣婚纱","scene":"混合","sceneDetail":"草地海边夕阳 + 白纱 + 逆光","tagline":"不用办婚礼，也能拍一组像结婚照的片","desc":"女生穿白纱或轻婚纱，男生穿西装或衬衫，在草地或海边夕阳里，逆光把头发打出金边，两个人自然拥抱或走路。","audience":{"age":"22–35 岁","gender":"情侣双人","body":"婚纱本身塑形，任何身材都能靠服装调整","skin":"任何肤色","occasions":["求婚纪念","周年","领证"]},"wardrobe":"女生轻婚纱或白裙（工作室可借），男生白衬衫+西裤；别穿运动鞋。","makeup":"新娘妆要精致但别太影楼；底妆要抗汗，头发做半披或盘发。","shootTips":["夕阳前一小时拍","让两个人走起来再回头","别让男生做鬼脸"],"light":"逆光主光 + 正面反光板补","priceTier":"定制","duration":"半天","tags":["婚纱","情侣","浪漫"],"why":"预算不想砸大婚礼，但想有一组像样的照片。","idx":"16"},{"id":"jk-uniform","name":"JK制服","aliases":["水手服","学院风"],"family":"二次元","scene":"混合","sceneDetail":"日式校园街景 + 教室门口","tagline":"像日剧里放学路上那一眼","desc":"穿水手服或百褶裙，背书包走在日式街道或教室门口，光很干净，动作是跑、回头、撩头发，整体像日剧截图。","audience":{"age":"16–25 岁","gender":"偏女性","body":"偏瘦到标准身材更出片","skin":"白皮、冷白皮最佳","occasions":["生日纪念","毕业季","社交头像"]},"wardrobe":"水手服+百褶裙+乐福鞋，书包要日式帆布包；别穿黑丝。","makeup":"底妆干净、腮红粉一点、嘴唇豆沙色；头发顺直或扎双马尾，别化浓妆。","shootTips":["跑起来再回头","站在栏杆边","让风吹裙子"],"light":"自然日光 + 白墙反补","priceTier":"入门","duration":"1 小时","tags":["JK","学院","青春"],"why":"想趁还能穿制服，留一套青春感的照片。","idx":"17"},{"id":"streetwear","name":"街头潮拍","aliases":["潮流街拍","闪光灯街拍"],"family":"街头潮流","scene":"户外自然光","sceneDetail":"涂鸦墙 + 便利店 + 黄昏街灯","tagline":"黄昏路灯下，你比那堵涂鸦墙还抢眼","desc":"傍晚街灯下，相机直闪打在脸上，背景是涂鸦墙或卷帘门，人穿宽松卫衣或工装裤，蹲或靠墙，像潮牌 lookbook。","audience":{"age":"18–30 岁","gender":"男女皆可","body":"宽松版型对身材包容度高","skin":"任何肤色","occasions":["潮牌合作","个人创作","生日"]},"wardrobe":"宽松卫衣+工装裤+板鞋，颜色黑灰为主加一件亮色外套；别穿正式西装。","makeup":"男生干净就行，女生别化甜美妆；头发抓乱一点，别做柔顺。","shootTips":["蹲在地上、背靠着墙","让相机直闪拍你","眼神看镜头要酷"],"light":"机顶直闪 + 黄昏环境光","priceTier":"常规","duration":"1.5 小时","tags":["街头","潮","闪光灯"],"why":"想拍一组不像游客照、能当潮图的片子。","idx":"18"},{"id":"backlight-rim","name":"逆光轮廓光","aliases":["金边逆光","剪影轮廓"],"family":"光影实验","scene":"户外自然光","sceneDetail":"夕阳海边 + 金边头发","tagline":"太阳在你身后，你整个人镶了一圈金边","desc":"太阳从背后低低打过来，在头发和肩膀上勾出一圈亮边，人物变成半剪影，脸被环境反射光轻轻带亮，像油画。","audience":{"age":"20–35 岁","gender":"男女皆可","body":"轮廓感强的（肩膀、下颌线）更出彩","skin":"任何肤色","occasions":["情侣纪念","生日大片","个人创作"]},"wardrobe":"浅色（米白、浅驼）或透明感面料；别穿纯黑，会把金边吃掉。","makeup":"底妆别太厚重；头发要有点蓬松度，让光能穿过去。","shootTips":["站在太阳正前方","眼睛别睁太大会眯","让头发和纱飘起来"],"light":"夕阳逆光主光 + 正面反光板","priceTier":"进阶","duration":"2 小时","tags":["逆光","金边","剪影"],"why":"想拍一组不用露脸、但一眼就高级的照片。","idx":"19"},{"id":"lifestyle-doc","name":"自然纪实","aliases":["生活方式","抓拍纪实"],"family":"纪实生活","scene":"户外自然光","sceneDetail":"家里咖啡馆菜市场 真实生活场景","tagline":"不是在拍照，是你本来就在过的那一天","desc":"在真实场景里拍——在家做饭、在咖啡馆翻书、在菜市场拎袋子，相机跟着你走，不摆姿势，像跟拍一天的纪录片。","audience":{"age":"20–40 岁","gender":"男女皆可，亲子也可","body":"对身材包容度高","skin":"任何肤色","occasions":["家庭记录","个人日记","生日礼物"]},"wardrobe":"你平时会穿的那件——棉 T、针织开衫、牛仔裤；别特意买新的。","makeup":"几乎不化，眉毛修整齐就行；头发要的是没造型的自然。","shootTips":["别管镜头，做自己的事","让摄影师远一点拍","笑要自然别假笑"],"light":"现场自然光，不额外打光","priceTier":"常规","duration":"1.5 小时","tags":["纪实","日常","真实"],"why":"不想摆拍，想留一组像我自己的照片。","idx":"20"},{"id":"underwater-rain","name":"水下雨景","aliases":["水下写真","雨夜氛围"],"family":"光影实验","scene":"混合","sceneDetail":"蓝绿水下 雨夜玻璃 湿润质感","tagline":"头发飘在水里，你像一条鱼","desc":"水下或雨夜布景，蓝绿色光打透水面，气泡浮在周围，头发和衣服飘起来，皮肤湿漉漉反光，像梦里面的镜头。","audience":{"age":"18–28 岁","gender":"偏女性","body":"偏瘦到标准身材更出片（水下浮力）","skin":"白皮最佳","occasions":["生日大片","个人创作","主题拍摄"]},"wardrobe":"浅色薄纱裙或白色衬衫，下水会透，建议贴 nude；别穿厚牛仔。","makeup":"防水底妆、眼线画防水款；头发湿了就别做造型。","shootTips":["在水里慢慢吐气","让头发自然飘","眼睛别睁大"],"light":"蓝绿色片 + 水面折射","priceTier":"进阶","duration":"2 小时","tags":["水下","湿润","梦幻"],"why":"想拍一组这辈子至少拍一次、不像人间的照片。","idx":"21"},{"id":"smoke-projection","name":"烟雾投影创意","aliases":["投影光","光影创意"],"family":"光影实验","scene":"室内棚拍","sceneDetail":"暗色棚 + 烟雾 + 投影条纹","tagline":"光在你脸上切出一道一道，像电影里的谜","desc":"暗棚里飘着烟，一束光从格栅后面打出来，在你脸和墙上切出条纹，人物站在光里，像被光照着的嫌疑人。","audience":{"age":"20–35 岁","gender":"男女皆可","body":"轮廓分明的更出片","skin":"任何肤色","occasions":["个人创作","杂志样片","主题拍摄"]},"wardrobe":"黑色高领或深色衬衫；别穿亮色，会和光打架。","makeup":"底妆哑光、眉毛浓一点；别化闪片妆。","shootTips":["脸慢慢转向光","让光切过眼睛","表情要冷"],"light":"格栅硬光 + 地烟 + 色片","priceTier":"进阶","duration":"2 小时","tags":["投影","烟雾","戏剧"],"why":"想拍一组完全不像日常、但又很有质感的片子。","idx":"22"},{"id":"multiple-exposure","name":"多重曝光","aliases":["叠影","双曝"],"family":"光影实验","scene":"混合","sceneDetail":"棚内人像 + 风景叠化","tagline":"一个人，两套人生，叠在同一张照片里","desc":"一张照片里同时出现你的脸和一棵树、一条街，两层画面半透明叠在一起，像做了一场梦，诗意又孤独。","audience":{"age":"22–35 岁","gender":"男女皆可","body":"对身材包容度高","skin":"任何肤色","occasions":["个人创作","生日纪念","艺术表达"]},"wardrobe":"纯色（黑、白、灰）；别穿花的，叠出来才干净。","makeup":"底妆干净、眉毛清晰；头发别挡脸。","shootTips":["脸要正对镜头","让摄影师先拍脸再拍景","表情放空"],"light":"柔光箱均匀打 + 后期叠景","priceTier":"进阶","duration":"2 小时","tags":["叠影","诗意","实验"],"why":"想拍一组能讲出故事、别人问起你怎么拍的照片。","idx":"23"},{"id":"long-exposure","name":"长曝环境人像","aliases":["慢门人像","拖影"],"family":"光影实验","scene":"户外自然光","sceneDetail":"城市夜景 + 慢门拖影","tagline":"全世界都在动，只有你是静的","desc":"相机慢慢拍几十秒，周围人群和车灯全拉成模糊的线，只有你站在中间清清楚楚，像时间停了一下。","audience":{"age":"20–35 岁","gender":"男女皆可","body":"任何身材（静立即可）","skin":"任何肤色","occasions":["城市创作","生日大片","情侣纪念"]},"wardrobe":"深色外套或长款风衣；别穿太亮的颜色，会糊成一团。","makeup":"夜晚拍摄底妆要持妆；头发别被风吹乱。","shootTips":["站在马路中间安全区","一动不动","眼神看镜头"],"light":"环境光 + 闪光灯定住主体","priceTier":"进阶","duration":"2 小时","tags":["慢门","城市","时间"],"why":"想拍一组你是世界中心、有速度感的照片。","idx":"24"},{"id":"wetplate","name":"古典湿版","aliases":["湿版摄影","古典肖像"],"family":"黑白极简","scene":"室内棚拍","sceneDetail":"十九世纪布景 + 玻璃底","tagline":"像你太爷爷那年代拍的肖像，连玻璃上的划痕都留着","desc":"用一百多年前的湿版工艺拍，照片带棕褐色调、边缘不规则、玻璃质感，人物要坐定不动几十秒，像古典油画肖像。","audience":{"age":"25–45 岁","gender":"男女皆可","body":"任何身材（古典构图）","skin":"任何肤色","occasions":["艺术收藏","家庭纪念","个人创作"]},"wardrobe":"深色立领或复古西装；别穿现代印花。","makeup":"底妆哑光、别化现代眼妆；头发复古盘起。","shootTips":["坐定、头靠支架","不能动","眼神平静"],"light":"大面积柔光 + 长曝","priceTier":"定制","duration":"半天","tags":["湿版","古典","工艺"],"why":"想拍一组工艺本身就值钱、能挂在家里的照片。","idx":"25"},{"id":"american-retro","name":"美式复古暖调","aliases":["美式胶片","公路复古"],"family":"复古胶片","scene":"混合","sceneDetail":"老式加油站汽车旅馆 + 暖琥珀色","tagline":"公路电影里，你刚从那辆老爷车下来","desc":"暖琥珀色和青色撞在一起，背景是老式加油站或霓虹灯 motel，人穿牛仔或皮夹克，戴墨镜，像七〇年代公路片截图。","audience":{"age":"20–35 岁","gender":"男女皆可","body":"任何身材","skin":"健康肤色、小麦色更出彩","occasions":["情侣纪念","生日大片","主题拍摄"]},"wardrobe":"牛仔夹克+白 T+高腰裤，或皮夹克+墨镜；别穿运动服。","makeup":"底妆晒感、眉毛浓一点；头发做大卷或戴帽子。","shootTips":["靠在车边","手插口袋","眼神看远方"],"light":"暖钨丝灯 + 青色色片","priceTier":"常规","duration":"1.5 小时","tags":["美式","公路","复古"],"why":"想拍一组像公路电影、不用真的去美国的照片。","idx":"26"},{"id":"french-lazy","name":"法式慵懒","aliases":["法式随性","南法阳光"],"family":"复古胶片","scene":"混合","sceneDetail":"阳台咖啡馆 + 斑驳阳光","tagline":"南法下午，你刚喝完一杯咖啡不想动","desc":"阳光透过树叶洒在脸上，人穿白衬衫或真丝吊带，头发乱糟糟，坐在咖啡馆或阳台，像刚睡醒的样子，松弛到骨头里。","audience":{"age":"22–35 岁","gender":"偏女性","body":"任何身材","skin":"白皮、暖黄皮最佳","occasions":["生日纪念","个人日记","情侣"]},"wardrobe":"白衬衫+牛仔裤，或真丝吊带裙，光脚；别穿运动鞋。","makeup":"几乎素颜、眉毛自然、嘴唇涂一点红；头发要的是乱。","shootTips":["靠在椅背上","拿杯咖啡","别整理头发"],"light":"斑驳自然光 + 白反","priceTier":"常规","duration":"1.5 小时","tags":["法式","慵懒","松弛"],"why":"不想拍甜的也不想拍冷的，就想拍一组松下来的照片。","idx":"27"},{"id":"minimal-grey","name":"极简高级灰","aliases":["高级灰","性冷淡风"],"family":"黑白极简","scene":"室内棚拍","sceneDetail":"灰色无缝背景 + 大留白","tagline":"整个画面只有灰，和你","desc":"灰色背景前面，一个人穿同色系灰，画面留大量空白，没有多余道具，像无印良品的宣传照，克制到骨子里。","audience":{"age":"25–40 岁","gender":"男女皆可","body":"标准身材最佳","skin":"任何肤色","occasions":["个人形象","品牌合作","职业头像"]},"wardrobe":"全灰或全黑——灰针织、灰大衣；别穿花纹。","makeup":"底妆干净、眉毛利落；头发顺直。","shootTips":["站在画面一侧","别做多余动作","眼神平静"],"light":"大型柔光箱均匀打","priceTier":"常规","duration":"1.5 小时","tags":["极简","灰","克制"],"why":"想拍一组不挑年份、十年后看还不过时的照片。","idx":"28"},{"id":"beauty-closeup","name":"美妆特写","aliases":["彩妆大片","面部特写"],"family":"时尚杂志","scene":"室内棚拍","sceneDetail":"干净背景 + 环形灯","tagline":"只有你这张脸，占满整个屏幕","desc":"镜头怼到脸前，光从一个环形灯打过来，皮肤水润发光，唇色和眼影特别艳，像彩妆品牌广告，毛孔都被磨掉。","audience":{"age":"20–30 岁","gender":"偏女性","body":"不需要身材（只拍脸）","skin":"皮肤状态好的更出彩","occasions":["彩妆合作","美妆博主","个人创作"]},"wardrobe":"不需要全身，穿黑或白 T 就行；领子别抢。","makeup":"重点是眼妆和唇色——红唇、截断眼妆、高光；这一组妆造是重头。","shootTips":["下巴微收","让镜头贴近你","眼神看镜头别躲"],"light":"环形灯、美光灯正前","priceTier":"进阶","duration":"2 小时","tags":["特写","美妆","水光"],"why":"想拍一组能当彩妆样片、证明自己能拍硬照的片。","idx":"29"},{"id":"storytelling","name":"剧情式叙事","aliases":["故事感","情景写真"],"family":"电影感叙事","scene":"户外自然光","sceneDetail":"老弄堂旧公寓 + 道具 + 情绪","tagline":"你不是在拍照，你在演一段你自己的故事","desc":"选一个场景——老弄堂、旧公寓、雨天车站，道具到位，人物在里面做一件具体的事，像一部短片的三帧，有前因有后果。","audience":{"age":"22–35 岁","gender":"男女皆可，双人更有戏","body":"任何身材","skin":"任何肤色","occasions":["情侣纪念","个人创作","生日大片"]},"wardrobe":"根据剧本定——可能是旧毛衣、可能是雨衣；提前跟摄影师聊。","makeup":"要的是刚哭过或刚下班的真实感；别化甜美妆。","shootTips":["别做动作给镜头看","做你自己会做的事","让摄影师抓拍"],"light":"现场光为主 + 一点补光","priceTier":"定制","duration":"半天","tags":["故事","剧情","叙事"],"why":"想拍一组能讲出前因后果、别人看完会问后来呢的照片。","idx":"30"},{"id":"fashion-lookbook","name":"服装穿搭","aliases":["穿搭片","Lookbook"],"family":"时尚杂志","scene":"户外自然光","sceneDetail":"白墙干净街景 + 全身走拍","tagline":"你穿的那件衣服，值得一整组照片","desc":"全身照为主，人穿一套完整穿搭在干净街景里走，镜头跟拍，重点是衣服的廓形和垂坠感，像品牌 lookbook。","audience":{"age":"18–30 岁","gender":"男女皆可","body":"衣架子身材（偏瘦到标准）更出彩","skin":"任何肤色","occasions":["服装品牌合作","穿搭博主","电商样片"]},"wardrobe":"自带 2–3 套完整穿搭，风格要统一；别穿拖鞋。","makeup":"妆面干净，别化太浓抢衣服；头发要整洁。","shootTips":["走起来","别摆拍","让摄影师抓走动瞬间"],"light":"自然光为主 + 反光板补","priceTier":"进阶","duration":"2 小时","tags":["穿搭","lookbook","全身"],"why":"想给自己的衣服或品牌拍一组能商用的样片。","idx":"31"},{"id":"high-key-white","name":"高调纯白","aliases":["纯白高调","白色系"],"family":"日系清新","scene":"室内棚拍","sceneDetail":"全白背景 + 全白服装","tagline":"你像从一团光里走出来的人","desc":"整个空间全白，背景、衣服、光都是白的，人物过曝到发光，像婚纱内景的极简版，干净到几乎看不见脸。","audience":{"age":"18–30 岁","gender":"偏女性","body":"任何身材（白衣服柔光）","skin":"白皮最佳","occasions":["社交头像","生日","个人纪念"]},"wardrobe":"白色或米白——白衬衫、白纱、白针织；别穿黑。","makeup":"底妆水光、嘴唇淡粉；头发松一点。","shootTips":["让光把你包住","别做太硬的动作","表情放空"],"light":"双向大柔光箱 + 白墙反射","priceTier":"入门","duration":"1 小时","tags":["高调","纯白","空灵"],"why":"想拍一组干净到不像人间、能当头像的片。","idx":"32"}]};
+
+/* ===== 状态 ===== */
+const state = { scene: "全部", family: "全部", tier: "全部", q: "", sort: "index" };
+const SCENES = ["全部", "室内棚拍", "户外自然光", "混合"];
+const TIERS = ["全部", "入门", "常规", "进阶", "定制"];
+
+const sheet = document.getElementById("sheet");
+const frames = Array.prototype.slice.call(sheet.querySelectorAll(".frame"));
+const countNum = document.getElementById("countNum");
+const countHint = document.getElementById("countHint");
+const emptyBox = document.getElementById("empty");
+const tierRow = document.getElementById("rowTier");
+const sceneRow = document.getElementById("rowScene");
+const familySelect = document.getElementById("familySelect");
+const sortSelect = document.getElementById("sortSelect");
+const qInput = document.getElementById("q");
+const veil = document.getElementById("veilLayer");
+const detail = document.getElementById("detail");
+let lastFocus = null;
+
+/* ===== 构建筛选条 ===== */
+function buildChips(container, values, key, counts) {
+  values.forEach(function (v) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.dataset.value = v;
+    b.setAttribute("aria-pressed", v === state[key] ? "true" : "false");
+    b.textContent = v;
+    if (counts && v !== "全部") {
+      const n = document.createElement("span");
+      n.className = "n";
+      n.textContent = counts[v] || 0;
+      b.appendChild(n);
+    }
+    b.addEventListener("click", function () {
+      state[key] = v;
+      Array.prototype.forEach.call(container.querySelectorAll(".chip"), function (c) {
+        c.setAttribute("aria-pressed", c.dataset.value === v ? "true" : "false");
+      });
+      apply();
+    });
+    container.appendChild(b);
+  });
+}
+
+const sceneCounts = {}, tierCounts = {}, familySet = {};
+frames.forEach(function (f) {
+  sceneCounts[f.dataset.scene] = (sceneCounts[f.dataset.scene] || 0) + 1;
+  tierCounts[f.dataset.tier] = (tierCounts[f.dataset.tier] || 0) + 1;
+  familySet[f.dataset.family] = true;
+});
+buildChips(sceneRow, SCENES, "scene", sceneCounts);
+buildChips(tierRow, TIERS, "tier", tierCounts);
+Object.keys(familySet).sort(function (a, b) {
+  return frames.findIndex(function (f) { return f.dataset.family === a; }) -
+         frames.findIndex(function (f) { return f.dataset.family === b; });
+}).forEach(function (fam) {
+  const o = document.createElement("option");
+  o.value = fam; o.textContent = fam;
+  familySelect.appendChild(o);
+});
+
+/* ===== 应用筛选 ===== */
+function apply() {
+  const q = state.q.trim().toLowerCase();
+  let visible = 0;
+  frames.forEach(function (f) {
+    const okScene = state.scene === "全部" || f.dataset.scene === state.scene;
+    const okFamily = state.family === "全部" || f.dataset.family === state.family;
+    const okTier = state.tier === "全部" || f.dataset.tier === state.tier;
+    const okQ = !q || f.dataset.kw.indexOf(q) !== -1;
+    const show = okScene && okFamily && okTier && okQ;
+    f.classList.toggle("is-hidden", !show);
+    if (show) visible++;
+  });
+  countNum.textContent = visible;
+  const parts = [];
+  if (state.scene !== "全部") parts.push(state.scene);
+  if (state.family !== "全部") parts.push(state.family);
+  if (state.tier !== "全部") parts.push(state.tier + "档");
+  if (q) parts.push("“" + state.q.trim() + "”");
+  countHint.textContent = parts.length ? "· " + parts.join(" / ") : "";
+  emptyBox.classList.toggle("on", visible === 0);
+  sheet.style.display = visible === 0 ? "none" : "";
+}
+
+/* ===== 排序 ===== */
+const PRICE_ORDER = { "入门": 1, "常规": 2, "进阶": 3, "定制": 4 };
+function resort() {
+  const list = frames.slice();
+  if (state.sort === "price") {
+    list.sort(function (a, b) {
+      const pa = PRICE_ORDER[a.dataset.tier] || 9, pb = PRICE_ORDER[b.dataset.tier] || 9;
+      if (pa !== pb) return pa - pb;
+      return (+a.dataset.i) - (+b.dataset.i);
+    });
+  } else {
+    list.sort(function (a, b) { return (+a.dataset.i) - (+b.dataset.i); });
+  }
+  list.forEach(function (f) { sheet.appendChild(f); });
+}
+
+/* ===== 详情 ===== */
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+function openDetail(id) {
+  const s = DATA.styles.filter(function (x) { return x.id === id; })[0];
+  if (!s) return;
+  lastFocus = document.activeElement;
+  detail.innerHTML =
+    '<div class="d-grid">' +
+      '<div class="d-media">' +
+        '<img src="assets/' + esc(s.id) + '.jpg" alt="' + esc(s.name) + ' 风格样片" width="900" height="1200">' +
+      '</div>' +
+      '<div class="d-body">' +
+        '<button class="d-close" type="button" id="dClose" aria-label="关闭详情">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19"></path></svg>' +
+        '</button>' +
+        '<div class="d-eyebrow">帧 ' + esc(s.idx) + ' / ' + esc(s.family) + '</div>' +
+        '<h2 class="d-name">' + esc(s.name) + '</h2>' +
+        '<div class="d-alias">又名 ' + esc(s.aliases.join(" / ")) + '</div>' +
+        '<p class="d-lead">' + esc(s.tagline) + '</p>' +
+        '<p class="d-desc">' + esc(s.desc) + '</p>' +
+        '<div class="d-meta">' +
+          '<div><span class="k">拍摄场景</span><span class="v">' + esc(s.scene) + '</span></div>' +
+          '<div><span class="k">价位档</span><span class="v">' + esc(s.priceTier) + '</span></div>' +
+          '<div><span class="k">建议时长</span><span class="v">' + esc(s.duration) + '</span></div>' +
+          '<div><span class="k">用光</span><span class="v">' + esc(s.light) + '</span></div>' +
+        '</div>' +
+        '<div class="sec">' +
+          '<h4>适合谁</h4>' +
+          '<div class="people">' +
+            '<div class="prow"><span>年龄</span><strong>' + esc(s.audience.age) + '</strong></div>' +
+            '<div class="prow"><span>性别</span><strong>' + esc(s.audience.gender) + '</strong></div>' +
+            '<div class="prow"><span>体型</span><strong>' + esc(s.audience.body) + '</strong></div>' +
+            '<div class="prow"><span>肤色</span><strong>' + esc(s.audience.skin) + '</strong></div>' +
+          '</div>' +
+          '<div class="occasions">' + s.audience.occasions.map(function (o) { return '<span>' + esc(o) + '</span>'; }).join("") + '</div>' +
+        '</div>' +
+        '<div class="sec"><h4>穿什么</h4><p>' + esc(s.wardrobe) + '</p></div>' +
+        '<div class="sec"><h4>妆造方向</h4><p>' + esc(s.makeup) + '</p></div>' +
+        '<div class="sec"><h4>在哪拍</h4><p>' + esc(s.sceneDetail) + '</p></div>' +
+        '<div class="sec"><h4>拍摄要点</h4><ul class="steps">' +
+          s.shootTips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join("") +
+        '</ul></div>' +
+        '<div class="why"><span class="k">为什么客人选它</span><p>' + esc(s.why) + '</p></div>' +
+        '<p class="d-foot">价位为相对档位，具体报价以到店沟通为准。样片为风格示意，非客片。</p>' +
+      '</div>' +
+    '</div>';
+  veil.classList.add("open");
+  veil.scrollTop = 0;
+  document.documentElement.style.overflow = "hidden";
+  const btn = document.getElementById("dClose");
+  if (btn) btn.addEventListener("click", closeDetail);
+  if (btn) btn.focus({ preventScroll: true });
+}
+function closeDetail() {
+  veil.classList.remove("open");
+  detail.innerHTML = "";
+  document.documentElement.style.overflow = "";
+  if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+}
+
+/* ===== 事件 ===== */
+sheet.addEventListener("click", function (e) {
+  const btn = e.target.closest(".frame-btn");
+  if (!btn) return;
+  openDetail(btn.closest(".frame").dataset.id);
+});
+veil.addEventListener("click", function (e) {
+  if (e.target === veil) closeDetail();
+});
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && veil.classList.contains("open")) closeDetail();
+});
+familySelect.addEventListener("change", function () { state.family = this.value; apply(); });
+sortSelect.addEventListener("change", function () { state.sort = this.value; resort(); apply(); });
+qInput.addEventListener("input", function () {
+  state.q = this.value;
+  apply();
+});
+document.getElementById("resetBtn").addEventListener("click", function () {
+  state.scene = "全部"; state.family = "全部"; state.tier = "全部"; state.q = ""; state.sort = "index";
+  qInput.value = ""; familySelect.value = "全部"; sortSelect.value = "index";
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
+    c.setAttribute("aria-pressed", c.dataset.value === "全部" ? "true" : "false");
+  });
+  resort(); apply();
+});
+
+apply();
+</script>
+</body>
+</html>
